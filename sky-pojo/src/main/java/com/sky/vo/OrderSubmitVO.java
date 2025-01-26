@@ -1,25 +1,40 @@
 package com.sky.vo;
 
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
-
+/**
+ * The OrderSubmitVO.
+ */
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class OrderSubmitVO implements Serializable {
-    //订单id
+
+    /**
+     * The order id.
+     */
     private Long id;
-    //订单号
+
+    /**
+     * The order number.
+     */
     private String orderNumber;
-    //订单金额
+
+    /**
+     * The order amount.
+     */
     private BigDecimal orderAmount;
-    //下单时间
+
+    /**
+     * The order time.
+     */
     private LocalDateTime orderTime;
 }

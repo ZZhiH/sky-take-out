@@ -1,15 +1,16 @@
 package com.sky.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 /**
- * 套餐
+ * The set meal.
  */
 @Data
 @Builder
@@ -19,31 +20,58 @@ public class Setmeal implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    /**
+     * The set meal id.
+     */
     private Long id;
 
-    //分类id
+    /**
+     * The category id.
+     */
     private Long categoryId;
 
-    //套餐名称
+    /**
+     * The set meal name.
+     */
     private String name;
 
-    //套餐价格
+    /**
+     * The set meal price.
+     */
     private BigDecimal price;
 
-    //状态 0:停用 1:启用
+    /**
+     * The status: 0 deactivate, 1 activate
+     */
     private Integer status;
 
-    //描述信息
+    /**
+     * The description.
+     */
     private String description;
 
-    //图片
+    /**
+     * The image.
+     */
     private String image;
 
+    /**
+     * The create time.
+     */
     private LocalDateTime createTime;
 
+    /**
+     * The update time.
+     */
     private LocalDateTime updateTime;
 
+    /**
+     * Create user.
+     */
     private Long createUser;
 
+    /**
+     * Update user.
+     */
     private Long updateUser;
 }

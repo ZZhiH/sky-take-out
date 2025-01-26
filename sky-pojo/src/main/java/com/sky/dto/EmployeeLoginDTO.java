@@ -1,19 +1,28 @@
 package com.sky.dto;
 
+import java.io.Serializable;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import java.io.Serializable;
-
+/**
+ * The EmployeeLoginDTO.
+ */
 @Data
-@ApiModel(description = "员工登录时传递的数据模型")
+@ApiModel(description = "Data model when employee login")
 public class EmployeeLoginDTO implements Serializable {
 
-    @ApiModelProperty("用户名")
+    /**
+     * The username.
+     */
+    @ApiModelProperty("username")
     private String username;
 
-    @ApiModelProperty("密码")
+    /**
+     * The password.
+     */
+    @ApiModelProperty("password")
     private String password;
 
 }

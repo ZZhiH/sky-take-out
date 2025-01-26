@@ -1,22 +1,38 @@
 package com.sky.dto;
 
-import lombok.Data;
-
 import java.io.Serializable;
 
+import lombok.Data;
+
+/**
+ * The SetmealPageQueryDTO.
+ */
 @Data
 public class SetmealPageQueryDTO implements Serializable {
 
+    /**
+     * The page.
+     */
     private int page;
 
+    /**
+     * The page size.
+     */
     private int pageSize;
 
+    /**
+     * The page size.
+     */
     private String name;
 
-    //分类id
+    /**
+     * The category id.
+     */
     private Integer categoryId;
 
-    //状态 0表示禁用 1表示启用
+    /**
+     * They set meal status: 0 deactivate, 1 activate
+     */
     private Integer status;
 
 }

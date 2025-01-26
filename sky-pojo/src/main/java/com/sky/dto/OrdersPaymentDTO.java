@@ -1,14 +1,23 @@
 package com.sky.dto;
 
-import lombok.Data;
 import java.io.Serializable;
 
+import lombok.Data;
+
+/**
+ * Order payment dto.
+ */
 @Data
 public class OrdersPaymentDTO implements Serializable {
-    //订单号
+
+    /**
+     * Order number.
+     */
     private String orderNumber;
 
-    //付款方式
+    /**
+     * Pay method.
+     */
     private Integer payMethod;
 
 }

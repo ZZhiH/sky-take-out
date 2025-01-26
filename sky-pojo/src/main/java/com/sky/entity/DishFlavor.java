@@ -1,14 +1,14 @@
 package com.sky.entity;
 
+import java.io.Serializable;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
-
 /**
- * 菜品口味
+ * The dish flavor.
  */
 @Data
 @Builder
@@ -18,14 +18,24 @@ public class DishFlavor implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    /**
+     * The dish flavor id.
+     */
     private Long id;
-    //菜品id
+
+    /**
+     * The dish id.
+     */
     private Long dishId;
 
-    //口味名称
+    /**
+     * The dish name.
+     */
     private String name;
 
-    //口味数据list
+    /**
+     * The dish flavor data list.
+     */
     private String value;
 
 }

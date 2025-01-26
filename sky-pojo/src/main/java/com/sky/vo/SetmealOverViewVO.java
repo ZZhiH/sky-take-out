@@ -1,23 +1,28 @@
 package com.sky.vo;
 
+import java.io.Serializable;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
-
 /**
- * 套餐总览
+ * The SetmealOverViewVO.
  */
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class SetmealOverViewVO implements Serializable {
-    // 已启售数量
+
+    /**
+     * The sold number.
+     */
     private Integer sold;
 
-    // 已停售数量
+    /**
+     * The discontinued.
+     */
     private Integer discontinued;
 }

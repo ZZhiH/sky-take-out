@@ -1,15 +1,15 @@
 package com.sky.entity;
 
+import java.io.Serializable;
+import java.math.BigDecimal;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
-import java.math.BigDecimal;
-
 /**
- * 订单明细
+ * The order detail.
  */
 @Data
 @Builder
@@ -19,29 +19,48 @@ public class OrderDetail implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    /**
+     * The order detail id.
+     */
     private Long id;
 
-    //名称
+    /**
+     * The order detail name.
+     */
     private String name;
 
-    //订单id
+    /**
+     * The order id.
+     */
     private Long orderId;
 
-    //菜品id
+    /**
+     * The dish id.
+     */
     private Long dishId;
 
-    //套餐id
+    /**
+     * The set meal id.
+     */
     private Long setmealId;
 
-    //口味
+    /**
+     * The dish flavor.
+     */
     private String dishFlavor;
 
-    //数量
+    /**
+     * The number.
+     */
     private Integer number;
 
-    //金额
+    /**
+     * The amount.
+     */
     private BigDecimal amount;
 
-    //图片
+    /**
+     * The image.
+     */
     private String image;
 }

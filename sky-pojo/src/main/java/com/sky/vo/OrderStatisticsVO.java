@@ -1,16 +1,27 @@
 package com.sky.vo;
 
-import lombok.Data;
 import java.io.Serializable;
 
+import lombok.Data;
+
+/**
+ * The OrderStatisticsVO.
+ */
 @Data
 public class OrderStatisticsVO implements Serializable {
-    //待接单数量
+
+    /**
+     * The number to be confirmed.
+     */
     private Integer toBeConfirmed;
 
-    //待派送数量
+    /**
+     * The number of confirmed.
+     */
     private Integer confirmed;
 
-    //派送中数量
+    /**
+     * The number of delivery in progress.
+     */
     private Integer deliveryInProgress;
 }

@@ -1,14 +1,23 @@
 package com.sky.dto;
 
-import lombok.Data;
-
 import java.io.Serializable;
 
+import lombok.Data;
+
+/**
+ * The OrdersCancelDTO.
+ */
 @Data
 public class OrdersCancelDTO implements Serializable {
 
+    /**
+     * Order cancel reason.
+     */
     private Long id;
-    //订单取消原因
+
+    /**
+     * Order cancel reason.
+     */
     private String cancelReason;
 
 }

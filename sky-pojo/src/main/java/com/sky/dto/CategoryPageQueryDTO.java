@@ -1,22 +1,33 @@
 package com.sky.dto;
 
-import lombok.Data;
-
 import java.io.Serializable;
 
+import lombok.Data;
+
+/**
+ * The CategoryPageQueryDTO.
+ */
 @Data
 public class CategoryPageQueryDTO implements Serializable {
 
-    //页码
+    /**
+     * Page
+     */
     private int page;
 
-    //每页记录数
+    /**
+     * Page size.
+     */
     private int pageSize;
 
-    //分类名称
+    /**
+     * Page name.
+     */
     private String name;
 
-    //分类类型 1菜品分类  2套餐分类
+    /**
+     * Type: 1 dishes, 2 set meal
+     */
     private Integer type;
 
 }

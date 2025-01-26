@@ -1,14 +1,16 @@
 package com.sky.entity;
 
+import java.io.Serializable;
+import java.time.LocalDateTime;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-
+/**
+ * The user.
+ */
 @Data
 @Builder
 @NoArgsConstructor
@@ -17,26 +19,43 @@ public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    /**
+     * The user id.
+     */
     private Long id;
 
-    //微信用户唯一标识
+    /**
+     * The WeChat openid.
+     */
     private String openid;
 
-    //姓名
+    /**
+     * The name.
+     */
     private String name;
 
-    //手机号
+    /**
+     * The phone number.
+     */
     private String phone;
 
-    //性别 0 女 1 男
+    /**
+     * The sex: 0 female, 1 male
+     */
     private String sex;
 
-    //身份证号
+    /**
+     * The id number.
+     */
     private String idNumber;
 
-    //头像
+    /**
+     * The avatar.
+     */
     private String avatar;
 
-    //注册时间
+    /**
+     * Create time.
+     */
     private LocalDateTime createTime;
 }

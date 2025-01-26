@@ -1,22 +1,31 @@
 package com.sky.vo;
 
-import com.sky.entity.OrderDetail;
-import com.sky.entity.Orders;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import java.io.Serializable;
 import java.util.List;
 
+import com.sky.entity.OrderDetail;
+import com.sky.entity.Orders;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+/**
+ * The OrderVO.
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class OrderVO extends Orders implements Serializable {
 
-    //订单菜品信息
+    /**
+     * The order dishes.
+     */
     private String orderDishes;
 
-    //订单详情
+    /**
+     * The list of {@code OrderDetail}
+     */
     private List<OrderDetail> orderDetailList;
 
 }

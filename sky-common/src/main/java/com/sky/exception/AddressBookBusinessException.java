@@ -1,5 +1,8 @@
 package com.sky.exception;
 
+/**
+ * Address book business exception.
+ */
 public class AddressBookBusinessException extends BaseException {
 
     public AddressBookBusinessException(String msg) {

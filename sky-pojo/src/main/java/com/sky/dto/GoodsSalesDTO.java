@@ -1,20 +1,28 @@
 package com.sky.dto;
 
+import java.io.Serializable;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
-
+/**
+ * The GoodsSalesDTO.
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 public class GoodsSalesDTO implements Serializable {
-    //商品名称
+
+    /**
+     * Good sales name.
+     */
     private String name;
 
-    //销量
+    /**
+     * Sales volume.
+     */
     private Integer number;
 }

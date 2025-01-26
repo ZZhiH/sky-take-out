@@ -1,14 +1,14 @@
 package com.sky.entity;
 
+import java.io.Serializable;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
-
 /**
- * 地址簿
+ * The Address Book.
  */
 @Data
 @Builder
@@ -18,44 +18,73 @@ public class AddressBook implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    /**
+     * The address id.
+     */
     private Long id;
 
-    //用户id
+    /**
+     * The user id.
+     */
     private Long userId;
 
-    //收货人
+    /**
+     * The consignee.
+     */
     private String consignee;
 
-    //手机号
+    /**
+     * The phone.
+     */
     private String phone;
 
-    //性别 0 女 1 男
+    /**
+     * The sex: 0 female, 1 male
+     */
     private String sex;
 
-    //省级区划编号
+    /**
+     * The province code.
+     */
     private String provinceCode;
 
-    //省级名称
+    /**
+     * The province name.
+     */
     private String provinceName;
 
-    //市级区划编号
+    /**
+     * The city code.
+     */
     private String cityCode;
 
-    //市级名称
+    /**
+     * The city name.
+     */
     private String cityName;
 
-    //区级区划编号
+    /**
+     * The district code.
+     */
     private String districtCode;
 
-    //区级名称
+    /**
+     * The district name.
+     */
     private String districtName;
 
-    //详细地址
+    /**
+     * The detail address.
+     */
     private String detail;
 
-    //标签
+    /**
+     * The label.
+     */
     private String label;
 
-    //是否默认 0否 1是
+    /**
+     * Is default address: 0 false, 1 true
+     */
     private Integer isDefault;
 }

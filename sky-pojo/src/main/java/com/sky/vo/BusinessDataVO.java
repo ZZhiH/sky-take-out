@@ -1,14 +1,14 @@
 package com.sky.vo;
 
+import java.io.Serializable;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
-
 /**
- * 数据概览
+ * The BusinessDataVO.
  */
 @Data
 @Builder
@@ -16,14 +16,29 @@ import java.io.Serializable;
 @AllArgsConstructor
 public class BusinessDataVO implements Serializable {
 
-    private Double turnover;//营业额
+    /**
+     * The revenue.
+     */
+    private Double turnover;
 
-    private Integer validOrderCount;//有效订单数
+    /**
+     * The valid order counter.
+     */
+    private Integer validOrderCount;
 
-    private Double orderCompletionRate;//订单完成率
+    /**
+     * The order completion rate.
+     */
+    private Double orderCompletionRate;
 
-    private Double unitPrice;//平均客单价
+    /**
+     * The unit price.
+     */
+    private Double unitPrice;
 
-    private Integer newUsers;//新增用户数
+    /**
+     * The new users.
+     */
+    private Integer newUsers;
 
 }

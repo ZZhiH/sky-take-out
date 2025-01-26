@@ -1,5 +1,8 @@
 package com.sky.constant;
 
+/**
+ * Jwt claims constant class.
+ */
 public class JwtClaimsConstant {
 
     public static final String EMP_ID = "empId";

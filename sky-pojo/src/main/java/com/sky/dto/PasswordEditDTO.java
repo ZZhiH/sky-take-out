@@ -1,19 +1,28 @@
 package com.sky.dto;
 
-import lombok.Data;
-
 import java.io.Serializable;
 
+import lombok.Data;
+
+/**
+ * The PasswordEditDTO.
+ */
 @Data
 public class PasswordEditDTO implements Serializable {
 
-    //员工id
+    /**
+     * The employee id.
+     */
     private Long empId;
 
-    //旧密码
+    /**
+     * The old password.
+     */
     private String oldPassword;
 
-    //新密码
+    /**
+     * The new password.
+     */
     private String newPassword;
 
 }

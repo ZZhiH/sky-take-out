@@ -1,19 +1,28 @@
 package com.sky.dto;
 
-import lombok.Data;
-
 import java.io.Serializable;
 
+import lombok.Data;
+
+/**
+ * The EmployeePageQueryDTO.
+ */
 @Data
 public class EmployeePageQueryDTO implements Serializable {
 
-    //员工姓名
+    /**
+     * Employee name.
+     */
     private String name;
 
-    //页码
+    /**
+     * Page.
+     */
     private int page;
 
-    //每页显示记录数
+    /**
+     * Page size.
+     */
     private int pageSize;
 
 }

@@ -1,15 +1,16 @@
 package com.sky.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 /**
- * 菜品
+ * The dish.
  */
 @Data
 @Builder
@@ -19,32 +20,59 @@ public class Dish implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    /**
+     * The dish id.
+     */
     private Long id;
 
-    //菜品名称
+    /**
+     * The dish name.
+     */
     private String name;
 
-    //菜品分类id
+    /**
+     * The category id.
+     */
     private Long categoryId;
 
-    //菜品价格
+    /**
+     * The dish price.
+     */
     private BigDecimal price;
 
-    //图片
+    /**
+     * The dish image.
+     */
     private String image;
 
-    //描述信息
+    /**
+     * The dish description.
+     */
     private String description;
 
-    //0 停售 1 起售
+    /**
+     * Dish status: 0 not on sale, 1 sale
+     */
     private Integer status;
 
+    /**
+     * Create time.
+     */
     private LocalDateTime createTime;
 
+    /**
+     * Update time.
+     */
     private LocalDateTime updateTime;
 
+    /**
+     * Create user.
+     */
     private Long createUser;
 
+    /**
+     * Update user.
+     */
     private Long updateUser;
 
 }

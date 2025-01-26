@@ -1,27 +1,38 @@
 package com.sky.vo;
 
+import java.io.Serializable;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
-
+/**
+ * The DishItemVO.
+ */
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class DishItemVO implements Serializable {
 
-    //菜品名称
+    /**
+     * The dish name.
+     */
     private String name;
 
-    //份数
+    /**
+     * The copies.
+     */
     private Integer copies;
 
-    //菜品图片
+    /**
+     * The dish image.
+     */
     private String image;
 
-    //菜品描述
+    /**
+     * The dish description.
+     */
     private String description;
 }

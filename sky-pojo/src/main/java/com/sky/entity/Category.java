@@ -1,12 +1,16 @@
 package com.sky.entity;
 
+import java.io.Serializable;
+import java.time.LocalDateTime;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import java.io.Serializable;
-import java.time.LocalDateTime;
 
+/**
+ * The Category.
+ */
 @Data
 @Builder
 @NoArgsConstructor
@@ -15,29 +19,48 @@ public class Category implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    /**
+     * The category id.
+     */
     private Long id;
 
-    //类型: 1菜品分类 2套餐分类
+    /**
+     * Type: 1 dish, 2 set meal
+     */
     private Integer type;
 
-    //分类名称
+    /**
+     * The category name.
+     */
     private String name;
 
-    //顺序
+    /**
+     * The sort.
+     */
     private Integer sort;
 
-    //分类状态 0标识禁用 1表示启用
+    /**
+     * The status: 0 disable, 1 enable
+     */
     private Integer status;
 
-    //创建时间
+    /**
+     * Create time.
+     */
     private LocalDateTime createTime;
 
-    //更新时间
+    /**
+     * Update time.
+     */
     private LocalDateTime updateTime;
 
-    //创建人
+    /**
+     * Create user.
+     */
     private Long createUser;
 
-    //修改人
+    /**
+     * Update user.
+     */
     private Long updateUser;
 }

@@ -1,36 +1,58 @@
 package com.sky.dto;
 
-import com.sky.entity.SetmealDish;
-import lombok.Data;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.sky.entity.SetmealDish;
+
+import lombok.Data;
+
+/**
+ * The SetmealDTO.
+ */
 @Data
 public class SetmealDTO implements Serializable {
 
+    /**
+     * The set meal id.
+     */
     private Long id;
 
-    //分类id
+    /**
+     * The category id.
+     */
     private Long categoryId;
 
-    //套餐名称
+    /**
+     * The set meal name.
+     */
     private String name;
 
-    //套餐价格
+    /**
+     * The set meal price.
+     */
     private BigDecimal price;
 
-    //状态 0:停用 1:启用
+    /**
+     * Set meal status: 0 Deactivate, 1 active
+     */
     private Integer status;
 
-    //描述信息
+    /**
+     * The description.
+     */
     private String description;
 
-    //图片
+    /**
+     * Set meal image.
+     */
     private String image;
 
-    //套餐菜品关系
+    /**
+     * List of {@code SetmealDish}
+     */
     private List<SetmealDish> setmealDishes = new ArrayList<>();
 
 }

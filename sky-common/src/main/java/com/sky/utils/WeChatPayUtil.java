@@ -60,7 +60,7 @@ public class WeChatPayUtil {
             List<X509Certificate> wechatPayCertificates = Arrays.asList(x509Certificate);
 
             WechatPayHttpClientBuilder builder = WechatPayHttpClientBuilder.create()
-                    .withMerchant(weChatProperties.getMchid(), weChatProperties.getMchSerialNo(), merchantPrivateKey)
+                    .withMerchant(weChatProperties.getMerchantId(), weChatProperties.getMerchantSerialNo(), merchantPrivateKey)
                     .withWechatPay(wechatPayCertificates);
 
             // 通过WechatPayHttpClientBuilder构造的HttpClient，会自动的处理签名和验签
@@ -85,7 +85,7 @@ public class WeChatPayUtil {
         HttpPost httpPost = new HttpPost(url);
         httpPost.addHeader(HttpHeaders.ACCEPT, ContentType.APPLICATION_JSON.toString());
         httpPost.addHeader(HttpHeaders.CONTENT_TYPE, ContentType.APPLICATION_JSON.toString());
-        httpPost.addHeader("Wechatpay-Serial", weChatProperties.getMchSerialNo());
+        httpPost.addHeader("Wechatpay-Serial", weChatProperties.getMerchantSerialNo());
         httpPost.setEntity(new StringEntity(body, "UTF-8"));
 
         CloseableHttpResponse response = httpClient.execute(httpPost);
@@ -110,7 +110,7 @@ public class WeChatPayUtil {
         HttpGet httpGet = new HttpGet(url);
         httpGet.addHeader(HttpHeaders.ACCEPT, ContentType.APPLICATION_JSON.toString());
         httpGet.addHeader(HttpHeaders.CONTENT_TYPE, ContentType.APPLICATION_JSON.toString());
-        httpGet.addHeader("Wechatpay-Serial", weChatProperties.getMchSerialNo());
+        httpGet.addHeader("Wechatpay-Serial", weChatProperties.getMerchantSerialNo());
 
         CloseableHttpResponse response = httpClient.execute(httpGet);
         try {
@@ -134,7 +134,7 @@ public class WeChatPayUtil {
     private String jsapi(String orderNum, BigDecimal total, String description, String openid) throws Exception {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("appid", weChatProperties.getAppid());
-        jsonObject.put("mchid", weChatProperties.getMchid());
+        jsonObject.put("mchid", weChatProperties.getMerchantId());
         jsonObject.put("description", description);
         jsonObject.put("out_trade_no", orderNum);
         jsonObject.put("notify_url", weChatProperties.getNotifyUrl());

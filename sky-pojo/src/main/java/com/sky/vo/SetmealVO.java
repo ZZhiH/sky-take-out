@@ -1,48 +1,74 @@
 package com.sky.vo;
 
-import com.sky.entity.SetmealDish;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.sky.entity.SetmealDish;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+/**
+ * The SetmealVO.
+ */
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class SetmealVO implements Serializable {
 
+    /**
+     * The setmeal id.
+     */
     private Long id;
 
-    //分类id
+    /**
+     * The category id.
+     */
     private Long categoryId;
 
-    //套餐名称
+    /**
+     * The set meal name.
+     */
     private String name;
 
-    //套餐价格
+    /**
+     * The set meal price.
+     */
     private BigDecimal price;
 
-    //状态 0:停用 1:启用
+    /**
+     * The status: 0 deactivate, 1 activate
+     */
     private Integer status;
 
-    //描述信息
+    /**
+     * The description.
+     */
     private String description;
 
-    //图片
+    /**
+     * The image.
+     */
     private String image;
 
-    //更新时间
+    /**
+     * Update time.
+     */
     private LocalDateTime updateTime;
 
-    //分类名称
+    /**
+     * The category name.
+     */
     private String categoryName;
 
-    //套餐和菜品的关联关系
+    /**
+     * List of {@code SetmealDish}.
+     */
     private List<SetmealDish> setmealDishes = new ArrayList<>();
 }
