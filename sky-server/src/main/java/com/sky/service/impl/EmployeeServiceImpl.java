@@ -13,6 +13,7 @@ import com.sky.mapper.EmployeeMapper;
 import com.sky.service.EmployeeService;
 
 import org.springframework.stereotype.Service;
+import org.springframework.util.DigestUtils;
 
 /**
  * The implementation of {@link EmployeeService}.
@@ -53,8 +54,8 @@ public class EmployeeServiceImpl implements EmployeeService {
             throw new AccountNotFoundException(MessageConstant.ACCOUNT_NOT_FOUND);
         }
 
-        // compare password
-        // TODO encode with md5 and compare
+        // encrypt with md5
+        password = DigestUtils.md5DigestAsHex(password.getBytes());
         if (!password.equals(employee.getPassword())) {
             // password error
             throw new PasswordErrorException(MessageConstant.PASSWORD_ERROR);
