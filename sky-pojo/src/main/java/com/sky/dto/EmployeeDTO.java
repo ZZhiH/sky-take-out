@@ -2,6 +2,7 @@ package com.sky.dto;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotNull;
 import lombok.Data;
 
 /**
@@ -18,25 +19,30 @@ public class EmployeeDTO implements Serializable {
     /**
      * Username.
      */
+    @NotNull
     private String username;
 
     /**
      * Name.
      */
+    @NotNull
     private String name;
 
     /**
      * Phone number.
      */
+    @NotNull
     private String phone;
 
     /**
      * Sex.
      */
+    @NotNull
     private String sex;
 
     /**
      * Id number.
      */
+    @NotNull
     private String idNumber;
 }

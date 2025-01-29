@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.sky.constant.JwtClaimsConstant;
+import com.sky.dto.EmployeeDTO;
 import com.sky.dto.EmployeeLoginDTO;
 import com.sky.entity.Employee;
 import com.sky.properties.JwtProperties;
@@ -14,6 +15,7 @@ import com.sky.vo.EmployeeLoginVO;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import javax.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -93,4 +95,18 @@ public class EmployeeController {
         return Result.success();
     }
 
+    /**
+     * Create new employee.
+     *
+     * @param employeeDTO the EmployeeDTO
+     * @return void
+     */
+    @PostMapping("")
+    @ApiOperation(value = "Create new employee")
+    public Result save(@RequestBody @Valid final EmployeeDTO employeeDTO) {
+        log.info("Create employee: {}", employeeDTO);
+
+        this.employeeService.createEmployee(employeeDTO);
+        return Result.success();
+    }
 }
