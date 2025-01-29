@@ -41,6 +41,7 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
      *
      * @param registry the InterceptorRegistry
      */
+    @Override
     protected void addInterceptors(InterceptorRegistry registry) {
         log.info("Add custom interceptor...");
         registry.addInterceptor(jwtTokenAdminInterceptor)
@@ -74,6 +75,7 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
      *
      * @param registry The ResourceHandlerRegistry.
      */
+    @Override
     protected void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/doc.html").addResourceLocations("classpath:/META-INF/resources/");
         registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");

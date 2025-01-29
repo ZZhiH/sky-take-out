@@ -12,6 +12,8 @@ import com.sky.service.EmployeeService;
 import com.sky.utils.JwtUtil;
 import com.sky.vo.EmployeeLoginVO;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,6 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/admin/employee")
 @Slf4j
+@Api(tags = "Employee related interface")
 public class EmployeeController {
 
     /**
@@ -55,6 +58,7 @@ public class EmployeeController {
      * @return EmployeeLoginVO
      */
     @PostMapping("/login")
+    @ApiOperation(value = "Employee login")
     public Result<EmployeeLoginVO> login(@RequestBody EmployeeLoginDTO employeeLoginDTO) {
         log.info("Employee login：{}", employeeLoginDTO);
 
@@ -84,6 +88,7 @@ public class EmployeeController {
      * @return String.
      */
     @PostMapping("/logout")
+    @ApiOperation(value = "Employee logout")
     public Result<String> logout() {
         return Result.success();
     }
