@@ -6,8 +6,10 @@ import java.util.Map;
 import com.sky.constant.JwtClaimsConstant;
 import com.sky.dto.EmployeeDTO;
 import com.sky.dto.EmployeeLoginDTO;
+import com.sky.dto.EmployeePageQueryDTO;
 import com.sky.entity.Employee;
 import com.sky.properties.JwtProperties;
+import com.sky.result.PageResult;
 import com.sky.result.Result;
 import com.sky.service.EmployeeService;
 import com.sky.utils.JwtUtil;
@@ -17,9 +19,11 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import javax.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -108,5 +112,31 @@ public class EmployeeController {
 
         this.employeeService.createEmployee(employeeDTO);
         return Result.success();
+    }
+
+    /**
+     * Employee paginated searcher.
+     *
+     * @param name     the employee name
+     * @param page     the page number
+     * @param pageSize the page size.
+     * @return result of pageResult
+     */
+    @GetMapping("/page")
+    @ApiOperation(value = "Employee page query")
+    public Result<PageResult> page(@RequestParam(value = "name", required = false) final String name,
+                                   @RequestParam(value = "page", defaultValue = "1") final Integer page,
+                                   @RequestParam(value = "pageSize", defaultValue = "10") final Integer pageSize) {
+        log.info("Find employees: name={}, page={}, pageSize={}", name, page, pageSize);
+
+        EmployeePageQueryDTO pageQueryDTO = EmployeePageQueryDTO.builder()
+            .name(name)
+            .page(page)
+            .pageSize(pageSize)
+            .build();
+
+        PageResult pageResult = this.employeeService.pageQuery(pageQueryDTO);
+
+        return Result.success(pageResult);
     }
 }

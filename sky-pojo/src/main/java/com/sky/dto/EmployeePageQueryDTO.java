@@ -2,12 +2,14 @@ package com.sky.dto;
 
 import java.io.Serializable;
 
+import lombok.Builder;
 import lombok.Data;
 
 /**
  * The EmployeePageQueryDTO.
  */
 @Data
+@Builder
 public class EmployeePageQueryDTO implements Serializable {
 
     /**
