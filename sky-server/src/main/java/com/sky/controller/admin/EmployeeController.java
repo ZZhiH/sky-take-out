@@ -20,6 +20,7 @@ import io.swagger.annotations.ApiOperation;
 import javax.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -107,7 +108,7 @@ public class EmployeeController {
      */
     @PostMapping("")
     @ApiOperation(value = "Create new employee")
-    public Result save(@RequestBody @Valid final EmployeeDTO employeeDTO) {
+    public Result<Void> save(@RequestBody @Valid final EmployeeDTO employeeDTO) {
         log.info("Create employee: {}", employeeDTO);
 
         this.employeeService.createEmployee(employeeDTO);
@@ -138,5 +139,23 @@ public class EmployeeController {
         PageResult pageResult = this.employeeService.pageQuery(pageQueryDTO);
 
         return Result.success(pageResult);
+    }
+
+    /**
+     * Enable/disable employee account
+     *
+     * @param status the account status, 1 enable 0 disable
+     * @param id     the employee id
+     * @return
+     */
+    @PostMapping("/status/{status}")
+    @ApiOperation(value = "Enable/disable employee account")
+    public Result<Void> enableOrDisableEmployee(@PathVariable("status") final Integer status,
+                                                @RequestParam(value = "id") final Long id) {
+        log.info("Enable/disable employee account: status={}, id={}", status, id);
+
+        this.employeeService.enableDisableEmployeeAccount(status, id);
+
+        return Result.success();
     }
 }

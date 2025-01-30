@@ -33,4 +33,12 @@ public interface EmployeeService {
      * @return {@code PageResult}
      */
     PageResult pageQuery(EmployeePageQueryDTO pageQueryDTO);
+
+    /**
+     * Enable/disable employee account with given status and employee id.
+     *
+     * @param status the status, 1 enable, 0 disable
+     * @param id     the employee id
+     */
+    void enableDisableEmployeeAccount(Integer status, Long id);
 }

@@ -120,8 +120,23 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         long total = page.getTotal();
         List<Employee> records = page.getResult();
-        
+
         return new PageResult(total, records);
+    }
+
+    @Override
+    public void enableDisableEmployeeAccount(Integer status, Long id) {
+        log.info("Lock employee: status={}, id={}", status, id);
+
+        Employee employee = Employee.builder()
+            .id(id)
+            .status(status)
+            .updateUser(BaseContext.getCurrentId())
+            .updateTime(LocalDateTime.now())
+            .build();
+
+        this.employeeMapper.update(employee);
+
     }
 
 }
