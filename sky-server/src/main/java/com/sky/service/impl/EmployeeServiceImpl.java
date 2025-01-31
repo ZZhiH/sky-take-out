@@ -25,13 +25,11 @@ import com.sky.service.EmployeeService;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
-import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
 /**
  * The implementation of {@link EmployeeService}.
  */
-@Service
 @Slf4j
 public class EmployeeServiceImpl implements EmployeeService {
 
