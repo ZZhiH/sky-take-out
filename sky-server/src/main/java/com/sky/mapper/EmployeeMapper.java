@@ -50,4 +50,12 @@ public interface EmployeeMapper {
      * @param employee the update employee
      */
     void update(Employee employee);
+
+    /**
+     * Find employee by id.
+     *
+     * @param id the employee id.
+     * @return the matched {@code Employee}
+     */
+    Employee findById(Long id);
 }

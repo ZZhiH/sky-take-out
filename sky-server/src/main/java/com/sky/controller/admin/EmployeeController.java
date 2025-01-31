@@ -22,6 +22,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -106,7 +107,7 @@ public class EmployeeController {
      * @param employeeDTO the EmployeeDTO
      * @return void
      */
-    @PostMapping("")
+    @PostMapping
     @ApiOperation(value = "Create new employee")
     public Result<Void> save(@RequestBody @Valid final EmployeeDTO employeeDTO) {
         log.info("Create employee: {}", employeeDTO);
@@ -155,6 +156,35 @@ public class EmployeeController {
         log.info("Enable/disable employee account: status={}, id={}", status, id);
 
         this.employeeService.enableDisableEmployeeAccount(status, id);
+
+        return Result.success();
+    }
+
+    /**
+     * Find employee by id.
+     *
+     * @param id the employee id
+     * @return the matched employee
+     */
+    @GetMapping("/{id}")
+    @ApiOperation(value = "Find employee by id")
+    public Result<Employee> findEmployeeById(@PathVariable("id") final Long id) {
+        log.info("Find employee by id: {}", id);
+
+        Employee employeeDTO = this.employeeService.findEmployeeById(id);
+
+        return Result.success(employeeDTO);
+    }
+
+    /**
+     * Update employee.
+     */
+    @PutMapping
+    @ApiOperation(value = "Update employee")
+    public Result<Void> updateEmployeeById(@RequestBody @Valid final EmployeeDTO employeeDTO) {
+        log.info("Update employee: {}", employeeDTO);
+
+        this.employeeService.updateEmployee(employeeDTO);
 
         return Result.success();
     }

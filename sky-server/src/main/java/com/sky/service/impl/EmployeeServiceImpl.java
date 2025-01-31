@@ -109,7 +109,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public PageResult pageQuery(EmployeePageQueryDTO pageQueryDTO) {
+    public PageResult pageQuery(final EmployeePageQueryDTO pageQueryDTO) {
         log.info("Entering findEmployees: pageQueryDTO={}", pageQueryDTO);
         // select * from employee limit 0, 10
 
@@ -125,7 +125,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public void enableDisableEmployeeAccount(Integer status, Long id) {
+    public void enableDisableEmployeeAccount(final Integer status, final Long id) {
         log.info("Lock employee: status={}, id={}", status, id);
 
         Employee employee = Employee.builder()
@@ -134,6 +134,31 @@ public class EmployeeServiceImpl implements EmployeeService {
             .updateUser(BaseContext.getCurrentId())
             .updateTime(LocalDateTime.now())
             .build();
+
+        this.employeeMapper.update(employee);
+
+    }
+
+    @Override
+    public Employee findEmployeeById(final Long id) {
+        log.info("Find employee by id: {}", id);
+
+        Employee employee = this.employeeMapper.findById(id);
+        employee.setPassword("****");
+
+        return employee;
+    }
+
+    @Override
+    public void updateEmployee(EmployeeDTO employeeDTO) {
+        log.info("Update employee: {}", employeeDTO);
+
+        Employee employee = new Employee();
+
+        BeanUtils.copyProperties(employeeDTO, employee);
+
+        employee.setUpdateTime(LocalDateTime.now());
+        employee.setUpdateUser(BaseContext.getCurrentId());
 
         this.employeeMapper.update(employee);
 

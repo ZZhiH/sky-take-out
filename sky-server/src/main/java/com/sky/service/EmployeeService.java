@@ -41,4 +41,19 @@ public interface EmployeeService {
      * @param id     the employee id
      */
     void enableDisableEmployeeAccount(Integer status, Long id);
+
+    /**
+     * Find employee by id.
+     *
+     * @param id the employee id
+     * @return the matched {@code Employee}
+     */
+    Employee findEmployeeById(Long id);
+
+    /**
+     * Update employee.
+     *
+     * @param employeeDTO the {@code Employee}
+     */
+    void updateEmployee(EmployeeDTO employeeDTO);
 }

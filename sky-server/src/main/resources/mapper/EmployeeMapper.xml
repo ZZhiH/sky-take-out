@@ -28,4 +28,12 @@
             id = #{id}
         </where>
     </update>
+    <select id="findById" resultType="com.sky.entity.Employee">
+        select * from employee
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+        </where>
+    </select>
 </mapper>
