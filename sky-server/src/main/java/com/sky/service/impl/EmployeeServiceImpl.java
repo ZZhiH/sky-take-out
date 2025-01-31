@@ -13,9 +13,11 @@ import com.sky.context.BaseContext;
 import com.sky.dto.EmployeeDTO;
 import com.sky.dto.EmployeeLoginDTO;
 import com.sky.dto.EmployeePageQueryDTO;
+import com.sky.dto.PasswordEditDTO;
 import com.sky.entity.Employee;
 import com.sky.exception.AccountLockedException;
 import com.sky.exception.AccountNotFoundException;
+import com.sky.exception.PasswordEditFailedException;
 import com.sky.exception.PasswordErrorException;
 import com.sky.mapper.EmployeeMapper;
 import com.sky.result.PageResult;
@@ -150,7 +152,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public void updateEmployee(EmployeeDTO employeeDTO) {
+    public void updateEmployee(final EmployeeDTO employeeDTO) {
         log.info("Update employee: {}", employeeDTO);
 
         Employee employee = new Employee();
@@ -162,6 +164,33 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         this.employeeMapper.update(employee);
 
+    }
+
+    @Override
+    public void editPassword(final PasswordEditDTO passwordEditDTO) {
+        log.info("Edit password: {}", passwordEditDTO);
+
+        String oldPassword = passwordEditDTO.getOldPassword();
+        String newPassword = passwordEditDTO.getNewPassword();
+
+        // find employee by id
+        Employee employee = this.employeeMapper.findById(passwordEditDTO.getEmpId());
+        if (employee == null) {
+            throw new AccountNotFoundException(MessageConstant.ACCOUNT_NOT_FOUND);
+        }
+        String oldPassMd5 = DigestUtils.md5DigestAsHex(oldPassword.getBytes());
+
+        // compare old password
+        if (!oldPassMd5.equals(employee.getPassword())) {
+            // throw password edit exception
+            throw new PasswordEditFailedException(MessageConstant.PASSWORD_EDIT_FAILED);
+        }
+
+        // set new password 
+        String newPassMd5 = DigestUtils.md5DigestAsHex(newPassword.getBytes());
+        employee.setPassword(newPassMd5);
+
+        this.employeeMapper.update(employee);
     }
 
 }
