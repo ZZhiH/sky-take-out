@@ -28,4 +28,11 @@ public interface CategoryMapper {
      * @return page of {@code Category}
      */
     Page<Category> pageQuery(CategoryPageQueryDTO categoryPageQueryDTO);
+
+    /**
+     * Update category.
+     *
+     * @param category the {@code Category}
+     */
+    void update(Category category);
 }

@@ -26,4 +26,12 @@ public interface CategoryService {
      * @return the result of {@code PageResult}
      */
     PageResult pageQuery(CategoryPageQueryDTO categoryPageQueryDTO);
+
+    /**
+     * Enable/disable category with given status and category id.
+     *
+     * @param status the status 1 enable, 0 disable
+     * @param id     the category id
+     */
+    void enableDisableCategory(Integer status, Long id);
 }

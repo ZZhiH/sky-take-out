@@ -11,9 +11,11 @@ import io.swagger.annotations.ApiOperation;
 import javax.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -72,5 +74,19 @@ public class CategoryController {
         PageResult pageResult = this.categoryService.pageQuery(categoryPageQueryDTO);
 
         return Result.success(pageResult);
+    }
+
+    /**
+     * Enable/disable employee category.
+     */
+    @PostMapping("/status/{status}")
+    @ApiOperation(value = "Enable/disable category")
+    public Result<Void> enableOrDisableCategory(@PathVariable("status") final Integer status,
+                                                @RequestParam(value = "id") final Long id) {
+        log.info("Enable/disable category: status={}, id={}", status, id);
+
+        this.categoryService.enableDisableCategory(status, id);
+
+        return Result.success();
     }
 }

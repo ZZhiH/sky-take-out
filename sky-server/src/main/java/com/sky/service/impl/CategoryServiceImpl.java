@@ -71,4 +71,18 @@ public class CategoryServiceImpl implements CategoryService {
 
         return new PageResult(total, records);
     }
+
+    @Override
+    public void enableDisableCategory(Integer status, Long id) {
+        log.info("Enable or disable category: status={}, id={}", status, id);
+
+        Category category = Category.builder()
+            .id(id)
+            .status(status)
+            .updateUser(BaseContext.getCurrentId())
+            .updateTime(LocalDateTime.now())
+            .build();
+
+        this.categoryMapper.update(category);
+    }
 }

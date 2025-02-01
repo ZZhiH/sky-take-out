@@ -144,11 +144,10 @@ public class EmployeeController {
     }
 
     /**
-     * Enable/disable employee account
+     * Enable/disable employee account.
      *
      * @param status the account status, 1 enable 0 disable
      * @param id     the employee id
-     * @return
      */
     @PostMapping("/status/{status}")
     @ApiOperation(value = "Enable/disable employee account")
