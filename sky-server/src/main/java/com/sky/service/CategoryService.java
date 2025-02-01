@@ -52,4 +52,11 @@ public interface CategoryService {
      * @return List of {@code Category}
      */
     List<Category> getCategoryList(Integer type);
+
+    /**
+     * Update category.
+     *
+     * @param categoryDTO the {@code CategoryDTO}
+     */
+    void updateCategory(CategoryDTO categoryDTO);
 }

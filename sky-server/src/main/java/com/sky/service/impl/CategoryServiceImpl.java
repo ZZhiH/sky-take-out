@@ -99,4 +99,20 @@ public class CategoryServiceImpl implements CategoryService {
 
         return this.categoryMapper.findCategoryListByType(type);
     }
+
+    @Override
+    public void updateCategory(CategoryDTO categoryDTO) {
+        log.info("Update category: {}", categoryDTO);
+
+        Category category = new Category();
+
+        // copy properties
+        BeanUtils.copyProperties(categoryDTO, category);
+
+        // set update data
+        category.setUpdateTime(LocalDateTime.now());
+        category.setUpdateUser(BaseContext.getCurrentId());
+
+        this.categoryMapper.update(category);
+    }
 }

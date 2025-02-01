@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -109,6 +110,12 @@ public class CategoryController {
         return Result.success();
     }
 
+    /**
+     * Get category list by type.
+     *
+     * @param type the category type
+     * @return list of {@code Category}
+     */
     @GetMapping("/list")
     @ApiOperation("get category list")
     public Result<List<Category>> getCategoryList(@RequestParam(value = "type", required = false) final Integer type) {
@@ -117,5 +124,20 @@ public class CategoryController {
         List<Category> categories = this.categoryService.getCategoryList(type);
 
         return Result.success(categories);
+    }
+
+    /**
+     * Update category.
+     *
+     * @param categoryDTO the {@code CategoryDTO}
+     */
+    @PutMapping
+    @ApiOperation("update category")
+    public Result<Void> updateCategory(@RequestBody @Valid final CategoryDTO categoryDTO) {
+        log.info("Update category: {}", categoryDTO);
+
+        this.categoryService.updateCategory(categoryDTO);
+
+        return Result.success();
     }
 }
