@@ -36,7 +36,7 @@ public class CategoryServiceImpl implements CategoryService {
      *
      * @param categoryMapper the Category mapper
      */
-    public CategoryServiceImpl(CategoryMapper categoryMapper) {
+    public CategoryServiceImpl(final CategoryMapper categoryMapper) {
         this.categoryMapper = categoryMapper;
     }
 
@@ -59,7 +59,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public PageResult pageQuery(CategoryPageQueryDTO categoryPageQueryDTO) {
+    public PageResult pageQuery(final CategoryPageQueryDTO categoryPageQueryDTO) {
         log.info("Category page query: {}", categoryPageQueryDTO);
 
         PageHelper.startPage(categoryPageQueryDTO.getPage(), categoryPageQueryDTO.getPageSize());
@@ -73,7 +73,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public void enableDisableCategory(Integer status, Long id) {
+    public void enableDisableCategory(final Integer status, Long id) {
         log.info("Enable or disable category: status={}, id={}", status, id);
 
         Category category = Category.builder()
@@ -84,5 +84,19 @@ public class CategoryServiceImpl implements CategoryService {
             .build();
 
         this.categoryMapper.update(category);
+    }
+
+    @Override
+    public void delete(final Long id) {
+        log.info("Delete by id: {}", id);
+
+        this.categoryMapper.deleteById(id);
+    }
+
+    @Override
+    public List<Category> getCategoryList(Integer type) {
+        log.info("Get category list by type: {}", type);
+
+        return this.categoryMapper.findCategoryListByType(type);
     }
 }

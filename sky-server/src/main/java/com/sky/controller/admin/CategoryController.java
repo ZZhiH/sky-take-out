@@ -1,7 +1,10 @@
 package com.sky.controller.admin;
 
+import java.util.List;
+
 import com.sky.dto.CategoryDTO;
 import com.sky.dto.CategoryPageQueryDTO;
+import com.sky.entity.Category;
 import com.sky.result.PageResult;
 import com.sky.result.Result;
 import com.sky.service.CategoryService;
@@ -10,6 +13,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import javax.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -80,7 +84,7 @@ public class CategoryController {
      * Enable/disable employee category.
      */
     @PostMapping("/status/{status}")
-    @ApiOperation(value = "Enable/disable category")
+    @ApiOperation("Enable/disable category")
     public Result<Void> enableOrDisableCategory(@PathVariable("status") final Integer status,
                                                 @RequestParam(value = "id") final Long id) {
         log.info("Enable/disable category: status={}, id={}", status, id);
@@ -88,5 +92,30 @@ public class CategoryController {
         this.categoryService.enableDisableCategory(status, id);
 
         return Result.success();
+    }
+
+    /**
+     * Delete category by id.
+     *
+     * @param id the category id
+     */
+    @DeleteMapping
+    @ApiOperation("Delete category by id")
+    public Result<Void> deleteCategory(@RequestParam(value = "id") final Long id) {
+        log.info("Delete category: {}", id);
+
+        this.categoryService.delete(id);
+
+        return Result.success();
+    }
+
+    @GetMapping("/list")
+    @ApiOperation("get category list")
+    public Result<List<Category>> getCategoryList(@RequestParam(value = "type", required = false) final Integer type) {
+        log.info("Get category list by type: {}", type);
+
+        List<Category> categories = this.categoryService.getCategoryList(type);
+
+        return Result.success(categories);
     }
 }
