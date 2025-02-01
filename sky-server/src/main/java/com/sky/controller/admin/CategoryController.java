@@ -105,7 +105,7 @@ public class CategoryController {
     public Result<Void> deleteCategory(@RequestParam(value = "id") final Long id) {
         log.info("Delete category: {}", id);
 
-        this.categoryService.delete(id);
+        this.categoryService.deleteById(id);
 
         return Result.success();
     }

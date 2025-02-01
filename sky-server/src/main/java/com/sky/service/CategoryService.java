@@ -43,7 +43,7 @@ public interface CategoryService {
      *
      * @param id the category id
      */
-    void delete(Long id);
+    void deleteById(Long id);
 
     /**
      * Get category list by type.

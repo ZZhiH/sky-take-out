@@ -1,7 +1,9 @@
 package com.sky.config;
 
 import com.sky.mapper.CategoryMapper;
+import com.sky.mapper.DishMapper;
 import com.sky.mapper.EmployeeMapper;
+import com.sky.mapper.SetMealMapper;
 import com.sky.service.CategoryService;
 import com.sky.service.EmployeeService;
 import com.sky.service.impl.CategoryServiceImpl;
@@ -37,7 +39,9 @@ public class ServiceConfiguration {
      * @return CategoryService
      */
     @Bean
-    CategoryService categoryService(final CategoryMapper categoryMapper) {
-        return new CategoryServiceImpl(categoryMapper);
+    CategoryService categoryService(final CategoryMapper categoryMapper,
+                                    final DishMapper dishMapper,
+                                    final SetMealMapper setMealMapper) {
+        return new CategoryServiceImpl(categoryMapper, dishMapper, setMealMapper);
     }
 }

@@ -5,12 +5,16 @@ import java.util.List;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.sky.constant.MessageConstant;
 import com.sky.constant.StatusConstant;
 import com.sky.context.BaseContext;
 import com.sky.dto.CategoryDTO;
 import com.sky.dto.CategoryPageQueryDTO;
 import com.sky.entity.Category;
+import com.sky.exception.DeletionNotAllowedException;
 import com.sky.mapper.CategoryMapper;
+import com.sky.mapper.DishMapper;
+import com.sky.mapper.SetMealMapper;
 import com.sky.result.PageResult;
 import com.sky.service.CategoryService;
 
@@ -31,13 +35,23 @@ public class CategoryServiceImpl implements CategoryService {
      */
     private final CategoryMapper categoryMapper;
 
+    private final DishMapper dishMapper;
+
+    private final SetMealMapper setMealMapper;
+
     /**
      * The constructor with specific parameter.
      *
      * @param categoryMapper the Category mapper
+     * @param dishMapper     the Dish mapper
+     * @param setMealMapper  The SetMeal mapper
      */
-    public CategoryServiceImpl(final CategoryMapper categoryMapper) {
+    public CategoryServiceImpl(final CategoryMapper categoryMapper,
+                               final DishMapper dishMapper,
+                               final SetMealMapper setMealMapper) {
         this.categoryMapper = categoryMapper;
+        this.dishMapper = dishMapper;
+        this.setMealMapper = setMealMapper;
     }
 
     @Override
@@ -87,8 +101,18 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public void delete(final Long id) {
+    public void deleteById(final Long id) {
         log.info("Delete by id: {}", id);
+
+        Integer dishesCount = this.dishMapper.countByCategoryId(id);
+        if (dishesCount > 0) {
+            throw new DeletionNotAllowedException(MessageConstant.CATEGORY_BE_RELATED_BY_DISH);
+        }
+
+        Integer setMealCount = this.setMealMapper.countByCategoryId(id);
+        if (setMealCount > 0) {
+            throw new DeletionNotAllowedException(MessageConstant.CATEGORY_BE_RELATED_BY_SETMEAL);
+        }
 
         this.categoryMapper.deleteById(id);
     }
