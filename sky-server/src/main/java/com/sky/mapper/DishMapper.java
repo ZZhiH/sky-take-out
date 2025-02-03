@@ -1,5 +1,6 @@
 package com.sky.mapper;
 
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
 /**
@@ -8,6 +9,7 @@ import org.apache.ibatis.annotations.Select;
  * Creator：ZHIHAO
  * Create date：2025/2/1 19:48
  */
+@Mapper
 public interface DishMapper {
 
     /**
