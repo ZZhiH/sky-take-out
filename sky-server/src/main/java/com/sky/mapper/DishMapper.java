@@ -62,4 +62,12 @@ public interface DishMapper {
      * @return page of {@code Dish}
      */
     Page<Dish> pageQuery(DishPageQueryDTO dishPageQueryDTO);
+
+    /**
+     * Update dish.
+     *
+     * @param dish the update dish
+     */
+    @Autofill(OperationType.UPDATE)
+    void update(Dish dish);
 }

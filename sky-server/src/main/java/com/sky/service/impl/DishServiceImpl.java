@@ -116,4 +116,16 @@ public class DishServiceImpl implements DishService {
 
         return new PageResult(total, records);
     }
+
+    @Override
+    public void enableDisableDish(final Integer status, final Long dishId) {
+        log.info("Enable/disable dish: status={}, dishId={}", status, dishId);
+
+        Dish dish = Dish.builder()
+            .id(dishId)
+            .status(status)
+            .build();
+
+        this.dishMapper.update(dish);
+    }
 }

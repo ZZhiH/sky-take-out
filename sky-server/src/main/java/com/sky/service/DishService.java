@@ -45,4 +45,12 @@ public interface DishService {
      * @return the PageResult
      */
     PageResult pageQuery(DishPageQueryDTO dishPageQueryDTO);
+
+    /**
+     * Enable/disable dish with given status and dish id.
+     *
+     * @param status the status, 1 enable, 0 disable
+     * @param dishId the dish id
+     */
+    void enableDisableDish(Integer status, Long dishId);
 }

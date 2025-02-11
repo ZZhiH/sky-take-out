@@ -103,4 +103,15 @@ public class DishController {
 
         return Result.success(pageResult);
     }
+
+    @PostMapping("/status/{status}")
+    @ApiOperation(value = "Enable/disable dish")
+    public Result<Void> enableOrDisableDish(@PathVariable("status") final Integer status,
+                                            @RequestParam("id") final Long dishId) {
+        log.info("Enable/disable dish: status={}, dishId={}", status, dishId);
+
+        this.dishService.enableDisableDish(status, dishId);
+
+        return Result.success();
+    }
 }
