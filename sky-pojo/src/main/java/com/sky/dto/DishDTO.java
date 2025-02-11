@@ -7,6 +7,7 @@ import java.util.List;
 
 import com.sky.entity.DishFlavor;
 
+import javax.validation.constraints.NotNull;
 import lombok.Data;
 
 /**
@@ -23,21 +24,30 @@ public class DishDTO implements Serializable {
     /**
      * Dish name.
      */
+    @NotNull
     private String name;
 
     /**
      * Dish category id.
      */
+    @NotNull
     private Long categoryId;
+
+    /**
+     * Dish category name.
+     */
+    private String categoryName;
 
     /**
      * Dish price.
      */
+    @NotNull
     private BigDecimal price;
 
     /**
      * Image.
      */
+    @NotNull
     private String image;
 
     /**

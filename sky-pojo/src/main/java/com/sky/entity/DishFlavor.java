@@ -2,6 +2,7 @@ package com.sky.entity;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -31,11 +32,13 @@ public class DishFlavor implements Serializable {
     /**
      * The dish name.
      */
+    @NotNull
     private String name;
 
     /**
      * The dish flavor data list.
      */
+    @NotNull
     private String value;
 
 }
