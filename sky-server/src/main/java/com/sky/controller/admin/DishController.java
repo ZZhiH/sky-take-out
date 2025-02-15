@@ -9,10 +9,11 @@ import com.sky.result.PageResult;
 import com.sky.result.Result;
 import com.sky.service.DishService;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import javax.validation.Valid;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,7 +32,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @Slf4j
 @RequestMapping("/admin/dish")
-@Api(tags = "Dish related interface")
+@Tag(name = "Dish related interface")
 public class DishController {
 
     /**
@@ -52,7 +53,7 @@ public class DishController {
      * Create new dish.
      */
     @PostMapping
-    @ApiOperation("Create new dish")
+    @Operation(summary = "createDish", description = "Create new dish")
     public Result<Void> save(@RequestBody @Valid final DishDTO dishDTO) {
         log.info("Create new dish: {}", dishDTO);
 
@@ -65,7 +66,7 @@ public class DishController {
      * Find by id.
      */
     @GetMapping("/{id}")
-    @ApiOperation("Find by id")
+    @Operation(summary = "findById", description = "Find by id")
     public Result<DishDTO> findById(@PathVariable final Long id) {
         log.info("Find by id: {}", id);
 
@@ -80,7 +81,7 @@ public class DishController {
      * @return list of {@code Dish} with given categoryId
      */
     @GetMapping("/list")
-    @ApiOperation("Find by category id")
+    @Operation(summary = "findByCategoryId", description = "Find by category id")
     public Result<List<Dish>> findByCategoryId(@RequestParam final String categoryId) {
         log.info("Find by category categoryId: {}", categoryId);
 
@@ -96,7 +97,7 @@ public class DishController {
      * @return result of {@code PageResult}
      */
     @GetMapping("/page")
-    @ApiOperation("Dish page query")
+    @Operation(summary = "pageQuery", description = "Dish page query")
     public Result<PageResult> page(@Valid final DishPageQueryDTO dishPageQueryDTO) {
         log.info("Dish page query: {}", dishPageQueryDTO);
 
@@ -112,7 +113,7 @@ public class DishController {
      * @param dishId the dish id
      */
     @PostMapping("/status/{status}")
-    @ApiOperation(value = "Enable/disable dish")
+    @Operation(summary = "enableOrDisableDish", description = "Enable/disable dish")
     public Result<Void> enableOrDisableDish(@PathVariable("status") final Integer status,
                                             @RequestParam("id") final Long dishId) {
         log.info("Enable/disable dish: status={}, dishId={}", status, dishId);
@@ -126,11 +127,26 @@ public class DishController {
      * Update dish by id.
      */
     @PutMapping
-    @ApiOperation(value = "Update dish by id")
+    @Operation(summary = "updateDish", description = "Update dish by id")
     public Result<Void> updateDish(@RequestBody @Valid final DishDTO dishDTO) {
         log.info("Update dish: {}", dishDTO);
 
         this.dishService.updateDish(dishDTO);
+
+        return Result.success();
+    }
+
+    /**
+     * Delete dish by ids.
+     *
+     * @param dishIds the list of id
+     */
+    @DeleteMapping
+    @Operation(summary = "deleteDish", description = "Delete batch dish")
+    public Result<Void> deleteDish(@RequestParam("ids") final List<Long> dishIds) {
+        log.info("Delete batch dish by ids: {}", dishIds);
+
+        this.dishService.deleteBatch(dishIds);
 
         return Result.success();
     }

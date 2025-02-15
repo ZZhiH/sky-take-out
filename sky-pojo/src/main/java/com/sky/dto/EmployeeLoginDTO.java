@@ -2,27 +2,26 @@ package com.sky.dto;
 
 import java.io.Serializable;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
  * The EmployeeLoginDTO.
  */
 @Data
-@ApiModel(description = "Data model when employee login")
+@Schema(description = "Data model when employee login")
 public class EmployeeLoginDTO implements Serializable {
 
     /**
      * The username.
      */
-    @ApiModelProperty("username")
+    @Schema(description = "username")
     private String username;
 
     /**
      * The password.
      */
-    @ApiModelProperty("password")
+    @Schema(description = "password")
     private String password;
 
 }

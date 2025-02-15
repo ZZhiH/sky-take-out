@@ -70,4 +70,11 @@ public interface DishMapper {
      */
     @Autofill(OperationType.UPDATE)
     void update(Dish dish);
+
+    /**
+     * Delete all by ids.
+     *
+     * @param ids the list of dish id
+     */
+    void deleteAll(List<Long> ids);
 }

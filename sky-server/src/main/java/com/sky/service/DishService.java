@@ -60,4 +60,11 @@ public interface DishService {
      * @param dishDTO the {@code DishDTO}
      */
     void updateDish(DishDTO dishDTO);
+
+    /**
+     * Batch delete dishes by ids.
+     *
+     * @param dishIds the dish ids
+     */
+    void deleteBatch(List<Long> dishIds);
 }

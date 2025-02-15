@@ -9,9 +9,9 @@ import com.sky.result.PageResult;
 import com.sky.result.Result;
 import com.sky.service.CategoryService;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import javax.validation.Valid;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,7 +32,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/admin/category")
 @Slf4j
-@Api(tags = "Category related interface")
+@Tag(name = "Category related interface")
 public class CategoryController {
 
     /**
@@ -45,7 +45,7 @@ public class CategoryController {
      *
      * @param categoryService the CategoryService
      */
-    public CategoryController(CategoryService categoryService) {
+    public CategoryController(final CategoryService categoryService) {
         this.categoryService = categoryService;
     }
 
@@ -56,7 +56,7 @@ public class CategoryController {
      * @return success
      */
     @PostMapping
-    @ApiOperation("Create new category")
+    @Operation(summary = "createCategory", description = "Create new category")
     public Result<Void> createCategory(@RequestBody @Valid final CategoryDTO categoryDTO) {
         log.info("Create category: {}", categoryDTO);
 
@@ -72,11 +72,11 @@ public class CategoryController {
      * @return the result of {@code PageResult}
      */
     @GetMapping("/page")
-    @ApiOperation("Category page query")
+    @Operation(summary = "pageQuery", description = "Category page query")
     public Result<PageResult> page(final CategoryPageQueryDTO categoryPageQueryDTO) {
         log.info("Find category: {}", categoryPageQueryDTO);
 
-        PageResult pageResult = this.categoryService.pageQuery(categoryPageQueryDTO);
+        final PageResult pageResult = this.categoryService.pageQuery(categoryPageQueryDTO);
 
         return Result.success(pageResult);
     }
@@ -85,7 +85,7 @@ public class CategoryController {
      * Enable/disable employee category.
      */
     @PostMapping("/status/{status}")
-    @ApiOperation("Enable/disable category")
+    @Operation(summary = "enableOrDisableCategory", description = "Enable/disable category")
     public Result<Void> enableOrDisableCategory(@PathVariable("status") final Integer status,
                                                 @RequestParam(value = "id") final Long id) {
         log.info("Enable/disable category: status={}, id={}", status, id);
@@ -101,7 +101,7 @@ public class CategoryController {
      * @param id the category id
      */
     @DeleteMapping
-    @ApiOperation("Delete category by id")
+    @Operation(summary = "deleteCategory", description = "Delete category by id")
     public Result<Void> deleteCategory(@RequestParam(value = "id") final Long id) {
         log.info("Delete category: {}", id);
 
@@ -117,11 +117,11 @@ public class CategoryController {
      * @return list of {@code Category}
      */
     @GetMapping("/list")
-    @ApiOperation("get category list")
+    @Operation(summary = "getCategoryList", description = "get category list")
     public Result<List<Category>> getCategoryList(@RequestParam(value = "type", required = false) final Integer type) {
         log.info("Get category list by type: {}", type);
 
-        List<Category> categories = this.categoryService.getCategoryList(type);
+        final List<Category> categories = this.categoryService.getCategoryList(type);
 
         return Result.success(categories);
     }
@@ -132,7 +132,7 @@ public class CategoryController {
      * @param categoryDTO the {@code CategoryDTO}
      */
     @PutMapping
-    @ApiOperation("update category")
+    @Operation(summary = "updateCategory", description = "update category")
     public Result<Void> updateCategory(@RequestBody @Valid final CategoryDTO categoryDTO) {
         log.info("Update category: {}", categoryDTO);
 

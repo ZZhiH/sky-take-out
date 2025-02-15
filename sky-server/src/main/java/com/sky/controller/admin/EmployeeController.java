@@ -16,9 +16,9 @@ import com.sky.service.EmployeeService;
 import com.sky.utils.JwtUtil;
 import com.sky.vo.EmployeeLoginVO;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import javax.validation.Valid;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -35,7 +35,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/admin/employee")
 @Slf4j
-@Api(tags = "Employee related interface")
+@Tag(name = "Employee related interface")
 public class EmployeeController {
 
     /**
@@ -67,21 +67,21 @@ public class EmployeeController {
      * @return EmployeeLoginVO
      */
     @PostMapping("/login")
-    @ApiOperation(value = "Employee login")
-    public Result<EmployeeLoginVO> login(@RequestBody EmployeeLoginDTO employeeLoginDTO) {
+    @Operation(summary = "login", description = "Employee login")
+    public Result<EmployeeLoginVO> login(@RequestBody final EmployeeLoginDTO employeeLoginDTO) {
         log.info("Employee login：{}", employeeLoginDTO);
 
-        Employee employee = employeeService.login(employeeLoginDTO);
+        final Employee employee = employeeService.login(employeeLoginDTO);
 
         // Login successful, generate jwt token.
-        Map<String, Object> claims = new HashMap<>();
+        final Map<String, Object> claims = new HashMap<>();
         claims.put(JwtClaimsConstant.EMP_ID, employee.getId());
-        String token = JwtUtil.createJWT(
+        final String token = JwtUtil.createJWT(
             jwtProperties.getAdminSecretKey(),
             jwtProperties.getAdminTtl(),
             claims);
 
-        EmployeeLoginVO employeeLoginVO = EmployeeLoginVO.builder()
+        final EmployeeLoginVO employeeLoginVO = EmployeeLoginVO.builder()
             .id(employee.getId())
             .userName(employee.getUsername())
             .name(employee.getName())
@@ -97,7 +97,7 @@ public class EmployeeController {
      * @return String.
      */
     @PostMapping("/logout")
-    @ApiOperation(value = "Employee logout")
+    @Operation(summary = "logout", description = "Employee logout")
     public Result<String> logout() {
         return Result.success();
     }
@@ -109,7 +109,7 @@ public class EmployeeController {
      * @return void
      */
     @PostMapping
-    @ApiOperation(value = "Create new employee")
+    @Operation(summary = "createEmployee", description = "Create new employee")
     public Result<Void> save(@RequestBody @Valid final EmployeeDTO employeeDTO) {
         log.info("Create employee: {}", employeeDTO);
 
@@ -126,19 +126,19 @@ public class EmployeeController {
      * @return result of pageResult
      */
     @GetMapping("/page")
-    @ApiOperation(value = "Employee page query")
+    @Operation(summary = "pageQuery", description = "Employee page query")
     public Result<PageResult> page(@RequestParam(value = "name", required = false) final String name,
                                    @RequestParam(value = "page", defaultValue = "1") final Integer page,
                                    @RequestParam(value = "pageSize", defaultValue = "10") final Integer pageSize) {
         log.info("Find employees: name={}, page={}, pageSize={}", name, page, pageSize);
 
-        EmployeePageQueryDTO pageQueryDTO = EmployeePageQueryDTO.builder()
+        final EmployeePageQueryDTO pageQueryDTO = EmployeePageQueryDTO.builder()
             .name(name)
             .page(page)
             .pageSize(pageSize)
             .build();
 
-        PageResult pageResult = this.employeeService.pageQuery(pageQueryDTO);
+        final PageResult pageResult = this.employeeService.pageQuery(pageQueryDTO);
 
         return Result.success(pageResult);
     }
@@ -150,7 +150,7 @@ public class EmployeeController {
      * @param id     the employee id
      */
     @PostMapping("/status/{status}")
-    @ApiOperation(value = "Enable/disable employee account")
+    @Operation(summary = "enableOrDisableEmployee", description = "Enable/disable employee account")
     public Result<Void> enableOrDisableEmployee(@PathVariable("status") final Integer status,
                                                 @RequestParam(value = "id") final Long id) {
         log.info("Enable/disable employee account: status={}, id={}", status, id);
@@ -167,11 +167,11 @@ public class EmployeeController {
      * @return the matched employee
      */
     @GetMapping("/{id}")
-    @ApiOperation(value = "Find employee by id")
+    @Operation(summary = "findById", description = "Find employee by id")
     public Result<Employee> findEmployeeById(@PathVariable("id") final Long id) {
         log.info("Find employee by id: {}", id);
 
-        Employee employeeDTO = this.employeeService.findEmployeeById(id);
+        final Employee employeeDTO = this.employeeService.findEmployeeById(id);
 
         return Result.success(employeeDTO);
     }
@@ -180,7 +180,7 @@ public class EmployeeController {
      * Update employee.
      */
     @PutMapping
-    @ApiOperation(value = "Update employee")
+    @Operation(summary = "updateById", description = "Update employee by id")
     public Result<Void> updateEmployeeById(@RequestBody @Valid final EmployeeDTO employeeDTO) {
         log.info("Update employee: {}", employeeDTO);
 
@@ -190,7 +190,7 @@ public class EmployeeController {
     }
 
     @PutMapping("/editPassword")
-    @ApiOperation(value = "Edit password")
+    @Operation(summary = "editPassword", description = "Edit password")
     public Result<Void> editPassword(@RequestBody final PasswordEditDTO passwordEditDTO) {
         log.info("Edit password: {}", passwordEditDTO);
 

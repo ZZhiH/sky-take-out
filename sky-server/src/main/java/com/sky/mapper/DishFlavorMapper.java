@@ -22,4 +22,8 @@ public interface DishFlavorMapper {
     List<DishFlavor> findByDishId(Long id);
 
     void updateBatch(List<DishFlavor> flavors);
+
+    List<DishFlavor> findByDishIdIn(List<Long> dishIds);
+
+    void deleteAll(List<Long> ids);
 }

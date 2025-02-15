@@ -2,8 +2,7 @@ package com.sky.vo;
 
 import java.io.Serializable;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,31 +15,31 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@ApiModel(description = "The data format returned for employee login")
+@Schema(description = "The data format returned for employee login")
 public class EmployeeLoginVO implements Serializable {
 
     /**
      * The id
      */
-    @ApiModelProperty("Primary key")
+    @Schema(description = "Primary key")
     private Long id;
 
     /**
      * The username.
      */
-    @ApiModelProperty("username")
+    @Schema(description = "username")
     private String userName;
 
     /**
      * The name.
      */
-    @ApiModelProperty("name")
+    @Schema(description = "name")
     private String name;
 
     /**
      * The JWT token
      */
-    @ApiModelProperty("jwt token")
+    @Schema(description = "jwt token")
     private String token;
 
 }

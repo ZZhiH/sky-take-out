@@ -7,7 +7,8 @@ import com.sky.constant.MessageConstant;
 import com.sky.result.Result;
 import com.sky.utils.S3Util;
 
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,6 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RestController
 @Slf4j
 @RequestMapping("/admin/common")
+@Tag(name = "Common interface")
 public class CommonController {
 
     @Autowired
@@ -36,7 +38,7 @@ public class CommonController {
      * @return
      */
     @PostMapping("/upload")
-    @ApiOperation("Common file uploader")
+    @Operation(summary = "fileUploader", description = "Common file uploader")
     public Result<String> upload(final MultipartFile file) {
         log.info("File uploader: {}", file);
 

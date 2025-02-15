@@ -17,6 +17,7 @@ import com.sky.service.DishService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 /**
  * The DishServiceImpl.
@@ -142,6 +143,22 @@ public class DishServiceImpl implements DishService {
         final List<DishFlavor> flavors = dishDTO.getFlavors();
 
         this.dishMapper.update(dish);
-        this.dishFlavorMapper.updateBatch(flavors);
+        if (!CollectionUtils.isEmpty(flavors)) {
+            this.dishFlavorMapper.updateBatch(flavors);
+        }
+    }
+
+    @Override
+    @Transactional
+    public void deleteBatch(final List<Long> ids) {
+        log.info("Batch delete dishes by ids: {}", ids);
+
+        final List<DishFlavor> dishFlavors = this.dishFlavorMapper.findByDishIdIn(ids);
+
+        if (!dishFlavors.isEmpty()) {
+            this.dishFlavorMapper.deleteAll(ids);
+        }
+
+        this.dishMapper.deleteAll(ids);
     }
 }

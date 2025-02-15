@@ -9,7 +9,9 @@ import io.jsonwebtoken.Claims;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -43,7 +45,8 @@ public class JwtTokenAdminInterceptor implements HandlerInterceptor {
      * @return
      * @throws Exception
      */
-    public boolean preHandle(final HttpServletRequest request, final HttpServletResponse response, final Object handler) throws Exception {
+    public boolean preHandle(final HttpServletRequest request, final HttpServletResponse response,
+                             final Object handler) throws Exception {
         // To determine whether the intercepted request is targeting a Controller method or other resources
         if (!(handler instanceof HandlerMethod)) {
             // not a dynamic method, allow it.
@@ -51,7 +54,12 @@ public class JwtTokenAdminInterceptor implements HandlerInterceptor {
         }
 
         //1、get jwt token from header.
-        final String token = request.getHeader(jwtProperties.getAdminTokenName());
+        String token = request.getHeader(jwtProperties.getAdminTokenName());
+        if (!StringUtils.hasLength(token)) {
+            final String authorization = request.getHeader(HttpHeaders.AUTHORIZATION);
+            if (authorization != null && authorization.startsWith("Bearer "))
+                token = authorization.substring(7);
+        }
 
         //2、validate token
         try {

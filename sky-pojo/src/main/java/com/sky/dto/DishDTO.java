@@ -7,7 +7,7 @@ import java.util.List;
 
 import com.sky.entity.DishFlavor;
 
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 /**

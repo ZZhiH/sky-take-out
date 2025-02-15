@@ -21,12 +21,12 @@ import software.amazon.awssdk.services.s3.S3Client;
  */
 @Configuration
 @Slf4j
-public class AwsS3Config {
+public class AwsS3Configuration {
 
     @Bean
     @ConditionalOnMissingBean
     S3Util s3Util(final AmazonS3Properties properties) {
-        log.info("start aws s3 configuration: {}", properties);
+        log.info("start aws s3 configuration");
         final StaticCredentialsProvider staticCredentialsProvider =
             this.awsCredentialsProvider(properties.getAccessKey(), properties.getSecretKey());
         final S3Client s3Client = this.s3Client(staticCredentialsProvider, properties.getRegion());

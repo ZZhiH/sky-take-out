@@ -37,6 +37,7 @@ sky:
     # token name
     admin-token-name: token
 
+# aws
 aws:
   s3:
     endpoint: ${sky.aws.s3.endpoint}
@@ -44,3 +45,11 @@ aws:
     region: ${sky.aws.s3.region}
     access-key: ${sky.aws.s3.access-key}
     secret-key: ${sky.aws.s3.secret-key}
+
+# swagger
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
