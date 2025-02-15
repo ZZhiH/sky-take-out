@@ -15,6 +15,8 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface SetmealDishMapper {
 
+    int countByDishIds(List<Long> dishIds);
+
     /**
      * Batch insert setmeal dishes.
      *

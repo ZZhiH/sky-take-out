@@ -4,13 +4,16 @@ import java.util.List;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.sky.constant.MessageConstant;
 import com.sky.constant.StatusConstant;
 import com.sky.dto.DishDTO;
 import com.sky.dto.DishPageQueryDTO;
 import com.sky.entity.Dish;
 import com.sky.entity.DishFlavor;
+import com.sky.exception.DeletionNotAllowedException;
 import com.sky.mapper.DishFlavorMapper;
 import com.sky.mapper.DishMapper;
+import com.sky.mapper.SetmealDishMapper;
 import com.sky.result.PageResult;
 import com.sky.service.DishService;
 import com.sky.vo.DishVO;
@@ -40,15 +43,23 @@ public class DishServiceImpl implements DishService {
     private final DishFlavorMapper dishFlavorMapper;
 
     /**
+     * The setmeal mapper.
+     */
+    private final SetmealDishMapper setmealDishMapper;
+
+    /**
      * Constructs with specific parameters.
      *
-     * @param dishMapper       the {@code DishMapper}
-     * @param dishFlavorMapper the {@code DishFlavorMapper}
+     * @param dishMapper        the {@code DishMapper}
+     * @param dishFlavorMapper  the {@code DishFlavorMapper}
+     * @param setmealDishMapper the {@code SetmealDishMapper}
      */
     public DishServiceImpl(final DishMapper dishMapper,
-                           final DishFlavorMapper dishFlavorMapper) {
+                           final DishFlavorMapper dishFlavorMapper,
+                           final SetmealDishMapper setmealDishMapper) {
         this.dishMapper = dishMapper;
         this.dishFlavorMapper = dishFlavorMapper;
+        this.setmealDishMapper = setmealDishMapper;
     }
 
     @Override
@@ -153,6 +164,12 @@ public class DishServiceImpl implements DishService {
     @Transactional
     public void deleteBatch(final List<Long> ids) {
         log.info("Batch delete dishes by ids: {}", ids);
+
+        final int count = this.setmealDishMapper.countByDishIds(ids);
+
+        if (count > 0) {
+            throw new DeletionNotAllowedException(MessageConstant.DISH_BE_RELATED_BY_SET_MEAL);
+        }
 
         final List<DishFlavor> dishFlavors = this.dishFlavorMapper.findByDishIdIn(ids);
 

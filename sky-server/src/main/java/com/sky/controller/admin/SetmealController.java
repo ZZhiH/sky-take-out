@@ -1,6 +1,7 @@
 package com.sky.controller.admin;
 
 import com.sky.dto.SetmealDTO;
+import com.sky.result.PageResult;
 import com.sky.result.Result;
 import com.sky.service.SetmealService;
 
@@ -39,6 +40,11 @@ public class SetmealController {
         this.setmealService = setmealService;
     }
 
+    /**
+     * Create new setmeal.
+     *
+     * @param setmealDTO the {@code SetmealDTO}
+     */
     @PostMapping
     @Operation(summary = "createSetmeal", description = "Create new setmeal")
     public Result<Void> save(@RequestBody @Valid final SetmealDTO setmealDTO) {
@@ -47,5 +53,14 @@ public class SetmealController {
         this.setmealService.save(setmealDTO);
 
         return Result.success();
+    }
+
+    /**
+     * Setmeal page query.
+     *
+     * @return the {@code PageResult}
+     */
+    public Result<PageResult> pageQuery() {
+        return null;
     }
 }

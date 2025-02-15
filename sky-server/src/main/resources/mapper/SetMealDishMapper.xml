@@ -10,4 +10,12 @@
             (#{sd.setmealId}, #{sd.dishId}, #{sd.name}, #{sd.price}, #{sd.copies})
         </foreach>
     </insert>
+    <select id="countByDishIds" resultType="java.lang.Integer">
+        select count(*)
+        from setmeal_dish
+        where dish_id in
+        <foreach collection="dishIds" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
 </mapper>

@@ -54,14 +54,16 @@ public class ServiceConfiguration {
     /**
      * Dish service bean.
      *
-     * @param dishMapper       the {@code DishMapper}
-     * @param dishFlavorMapper the {@code DishFlavorMapper}
+     * @param dishMapper        the {@code DishMapper}
+     * @param dishFlavorMapper  the {@code DishFlavorMapper}
+     * @param setmealDishMapper the {@code SetmealDishMapper}
      * @return DishService
      */
     @Bean
     DishService dishService(final DishMapper dishMapper,
-                            final DishFlavorMapper dishFlavorMapper) {
-        return new DishServiceImpl(dishMapper, dishFlavorMapper);
+                            final DishFlavorMapper dishFlavorMapper,
+                            final SetmealDishMapper setmealDishMapper) {
+        return new DishServiceImpl(dishMapper, dishFlavorMapper, setmealDishMapper);
     }
 
     /**
