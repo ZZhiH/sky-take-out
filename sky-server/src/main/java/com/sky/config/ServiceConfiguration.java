@@ -5,12 +5,15 @@ import com.sky.mapper.DishFlavorMapper;
 import com.sky.mapper.DishMapper;
 import com.sky.mapper.EmployeeMapper;
 import com.sky.mapper.SetMealMapper;
+import com.sky.mapper.SetmealDishMapper;
 import com.sky.service.CategoryService;
 import com.sky.service.DishService;
 import com.sky.service.EmployeeService;
+import com.sky.service.SetmealService;
 import com.sky.service.impl.CategoryServiceImpl;
 import com.sky.service.impl.DishServiceImpl;
 import com.sky.service.impl.EmployeeServiceImpl;
+import com.sky.service.impl.SetmealServiceImpl;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -48,9 +51,29 @@ public class ServiceConfiguration {
         return new CategoryServiceImpl(categoryMapper, dishMapper, setMealMapper);
     }
 
+    /**
+     * Dish service bean.
+     *
+     * @param dishMapper       the {@code DishMapper}
+     * @param dishFlavorMapper the {@code DishFlavorMapper}
+     * @return DishService
+     */
     @Bean
     DishService dishService(final DishMapper dishMapper,
                             final DishFlavorMapper dishFlavorMapper) {
         return new DishServiceImpl(dishMapper, dishFlavorMapper);
+    }
+
+    /**
+     * Setmeal service bean.
+     *
+     * @param setMealMapper     the {@code SetMealMapper}
+     * @param setmealDishMapper the {@code SetmealDishMapper}
+     * @return SetmealService
+     */
+    @Bean
+    SetmealService setmealService(final SetMealMapper setMealMapper,
+                                  final SetmealDishMapper setmealDishMapper) {
+        return new SetmealServiceImpl(setMealMapper, setmealDishMapper);
     }
 }
