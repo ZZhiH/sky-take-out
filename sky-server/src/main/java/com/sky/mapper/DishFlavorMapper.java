@@ -16,8 +16,10 @@ import org.apache.ibatis.annotations.Select;
 @Mapper
 public interface DishFlavorMapper {
 
-    void batchInsert(List<DishFlavor> dishFlavorList);
+    void insertBatch(List<DishFlavor> dishFlavorList);
 
     @Select("select * from dish_flavor where dish_id = #{id}")
     List<DishFlavor> findByDishId(Long id);
+
+    void updateBatch(List<DishFlavor> flavors);
 }

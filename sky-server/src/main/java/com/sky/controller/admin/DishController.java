@@ -16,6 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -55,7 +56,7 @@ public class DishController {
     public Result<Void> save(@RequestBody @Valid final DishDTO dishDTO) {
         log.info("Create new dish: {}", dishDTO);
 
-        this.dishService.save(dishDTO);
+        this.dishService.saveWithFlavor(dishDTO);
 
         return Result.success();
     }
@@ -68,7 +69,7 @@ public class DishController {
     public Result<DishDTO> findById(@PathVariable final Long id) {
         log.info("Find by id: {}", id);
 
-        DishDTO dishDTO = this.dishService.findById(id);
+        final DishDTO dishDTO = this.dishService.findById(id);
 
         return Result.success(dishDTO);
     }
@@ -83,7 +84,7 @@ public class DishController {
     public Result<List<Dish>> findByCategoryId(@RequestParam final String categoryId) {
         log.info("Find by category categoryId: {}", categoryId);
 
-        List<Dish> dishList = this.dishService.findByCategoryId(categoryId);
+        final List<Dish> dishList = this.dishService.findByCategoryId(categoryId);
 
         return Result.success(dishList);
     }
@@ -99,11 +100,17 @@ public class DishController {
     public Result<PageResult> page(@Valid final DishPageQueryDTO dishPageQueryDTO) {
         log.info("Dish page query: {}", dishPageQueryDTO);
 
-        PageResult pageResult = this.dishService.pageQuery(dishPageQueryDTO);
+        final PageResult pageResult = this.dishService.pageQuery(dishPageQueryDTO);
 
         return Result.success(pageResult);
     }
 
+    /**
+     * Enable/disable dish by status and id.
+     *
+     * @param status the dish status
+     * @param dishId the dish id
+     */
     @PostMapping("/status/{status}")
     @ApiOperation(value = "Enable/disable dish")
     public Result<Void> enableOrDisableDish(@PathVariable("status") final Integer status,
@@ -111,6 +118,19 @@ public class DishController {
         log.info("Enable/disable dish: status={}, dishId={}", status, dishId);
 
         this.dishService.enableDisableDish(status, dishId);
+
+        return Result.success();
+    }
+
+    /**
+     * Update dish by id.
+     */
+    @PutMapping
+    @ApiOperation(value = "Update dish by id")
+    public Result<Void> updateDish(@RequestBody @Valid final DishDTO dishDTO) {
+        log.info("Update dish: {}", dishDTO);
+
+        this.dishService.updateDish(dishDTO);
 
         return Result.success();
     }

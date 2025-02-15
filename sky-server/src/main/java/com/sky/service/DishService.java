@@ -20,7 +20,7 @@ public interface DishService {
      *
      * @param dishDTO the {@code DishDTO}
      */
-    void save(DishDTO dishDTO);
+    void saveWithFlavor(DishDTO dishDTO);
 
     /**
      * Find by id.
@@ -53,4 +53,11 @@ public interface DishService {
      * @param dishId the dish id
      */
     void enableDisableDish(Integer status, Long dishId);
+
+    /**
+     * Update dish.
+     *
+     * @param dishDTO the {@code DishDTO}
+     */
+    void updateDish(DishDTO dishDTO);
 }

@@ -51,10 +51,10 @@ public class DishServiceImpl implements DishService {
 
     @Override
     @Transactional
-    public void save(final DishDTO dishDTO) {
+    public void saveWithFlavor(final DishDTO dishDTO) {
         log.info("create new dish: {}", dishDTO);
 
-        Dish dish = new Dish();
+        final Dish dish = new Dish();
 
         // copy properties
         BeanUtils.copyProperties(dishDTO, dish);
@@ -66,19 +66,19 @@ public class DishServiceImpl implements DishService {
         this.dishMapper.insert(dish);
 
         // create new dish flavor
-        List<DishFlavor> flavors = dishDTO.getFlavors();
+        final List<DishFlavor> flavors = dishDTO.getFlavors();
         flavors.forEach(f -> f.setDishId(dish.getId()));
-        this.dishFlavorMapper.batchInsert(flavors);
+        this.dishFlavorMapper.insertBatch(flavors);
     }
 
     @Override
     public DishDTO findById(final Long id) {
         log.info("find by id: {}", id);
 
-        DishDTO dishDTO = new DishDTO();
+        final DishDTO dishDTO = new DishDTO();
 
         // find dish by id
-        Dish dish = this.dishMapper.findById(id);
+        final Dish dish = this.dishMapper.findById(id);
 
         if (dish == null) {
             return dishDTO;
@@ -88,7 +88,7 @@ public class DishServiceImpl implements DishService {
         BeanUtils.copyProperties(dish, dishDTO);
 
         // find dish flavor by id
-        List<DishFlavor> dishFlavors = this.dishFlavorMapper.findByDishId(id);
+        final List<DishFlavor> dishFlavors = this.dishFlavorMapper.findByDishId(id);
 
         // set dish flavors
         dishDTO.setFlavors(dishFlavors);
@@ -109,10 +109,10 @@ public class DishServiceImpl implements DishService {
 
         PageHelper.startPage(dishPageQueryDTO.getPage(), dishPageQueryDTO.getPageSize());
 
-        Page<Dish> page = this.dishMapper.pageQuery(dishPageQueryDTO);
+        final Page<Dish> page = this.dishMapper.pageQuery(dishPageQueryDTO);
 
-        long total = page.getTotal();
-        List<Dish> records = page.getResult();
+        final long total = page.getTotal();
+        final List<Dish> records = page.getResult();
 
         return new PageResult(total, records);
     }
@@ -121,11 +121,27 @@ public class DishServiceImpl implements DishService {
     public void enableDisableDish(final Integer status, final Long dishId) {
         log.info("Enable/disable dish: status={}, dishId={}", status, dishId);
 
-        Dish dish = Dish.builder()
+        final Dish dish = Dish.builder()
             .id(dishId)
             .status(status)
             .build();
 
         this.dishMapper.update(dish);
+    }
+
+    @Override
+    @Transactional
+    public void updateDish(final DishDTO dishDTO) {
+        log.info("Update dish: {}", dishDTO);
+
+        final Dish dish = new Dish();
+
+        // copy properties
+        BeanUtils.copyProperties(dishDTO, dish);
+
+        final List<DishFlavor> flavors = dishDTO.getFlavors();
+
+        this.dishMapper.update(dish);
+        this.dishFlavorMapper.updateBatch(flavors);
     }
 }

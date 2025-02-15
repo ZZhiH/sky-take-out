@@ -34,11 +34,6 @@ public class DishDTO implements Serializable {
     private Long categoryId;
 
     /**
-     * Dish category name.
-     */
-    private String categoryName;
-
-    /**
      * Dish price.
      */
     @NotNull

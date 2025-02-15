@@ -6,8 +6,8 @@ import com.sky.properties.JwtProperties;
 import com.sky.utils.JwtUtil;
 
 import io.jsonwebtoken.Claims;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
@@ -43,7 +43,7 @@ public class JwtTokenAdminInterceptor implements HandlerInterceptor {
      * @return
      * @throws Exception
      */
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+    public boolean preHandle(final HttpServletRequest request, final HttpServletResponse response, final Object handler) throws Exception {
         // To determine whether the intercepted request is targeting a Controller method or other resources
         if (!(handler instanceof HandlerMethod)) {
             // not a dynamic method, allow it.
@@ -51,20 +51,20 @@ public class JwtTokenAdminInterceptor implements HandlerInterceptor {
         }
 
         //1、get jwt token from header.
-        String token = request.getHeader(jwtProperties.getAdminTokenName());
+        final String token = request.getHeader(jwtProperties.getAdminTokenName());
 
         //2、validate token
         try {
             log.info("jwt validate:{}", token);
-            Claims claims = JwtUtil.parseJWT(jwtProperties.getAdminSecretKey(), token);
-            Long empId = Long.valueOf(claims.get(JwtClaimsConstant.EMP_ID).toString());
+            final Claims claims = JwtUtil.parseJWT(jwtProperties.getAdminSecretKey(), token);
+            final Long empId = Long.valueOf(claims.get(JwtClaimsConstant.EMP_ID).toString());
             log.info("current employee id：{}", empId);
 
             BaseContext.setCurrentId(empId);
 
             //3、valid, allow
             return true;
-        } catch (Exception ex) {
+        } catch (final Exception ex) {
             //4、not allowed, response with 401 status
             response.setStatus(401);
             return false;

@@ -7,11 +7,10 @@ spring:
   main:
     allow-circular-references: true
   datasource:
-    druid:
-      driver-class-name: ${sky.datasource.driver-class-name}
-      url: jdbc:mysql://${sky.datasource.host}:${sky.datasource.port}/${sky.datasource.database}?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
-      username: ${sky.datasource.username}
-      password: ${sky.datasource.password}
+    driver-class-name: ${sky.datasource.driver-class-name}
+    url: jdbc:mysql://${sky.datasource.host}:${sky.datasource.port}/${sky.datasource.database}?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
+    username: ${sky.datasource.username}
+    password: ${sky.datasource.password}
 
 mybatis:
   # mapper setting
@@ -37,3 +36,11 @@ sky:
     admin-ttl: 7200000
     # token name
     admin-token-name: token
+
+aws:
+  s3:
+    endpoint: ${sky.aws.s3.endpoint}
+    bucket-name: ${sky.aws.s3.bucket-name}
+    region: ${sky.aws.s3.region}
+    access-key: ${sky.aws.s3.access-key}
+    secret-key: ${sky.aws.s3.secret-key}
