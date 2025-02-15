@@ -7,6 +7,7 @@ import com.sky.annotation.Autofill;
 import com.sky.dto.DishPageQueryDTO;
 import com.sky.entity.Dish;
 import com.sky.enumeration.OperationType;
+import com.sky.vo.DishVO;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -56,20 +57,20 @@ public interface DishMapper {
     List<Dish> findByCategoryId(String categoryId);
 
     /**
-     * Dish page query.
-     *
-     * @param dishPageQueryDTO the {@code DishPageQueryDTO}
-     * @return page of {@code Dish}
-     */
-    Page<Dish> pageQuery(DishPageQueryDTO dishPageQueryDTO);
-
-    /**
      * Update dish.
      *
      * @param dish the update dish
      */
     @Autofill(OperationType.UPDATE)
     void update(Dish dish);
+
+    /**
+     * Dish page query.
+     *
+     * @param dishPageQueryDTO the {@code DishPageQueryDTO}
+     * @return page of {@code Dish}
+     */
+    Page<DishVO> pageQuery(DishPageQueryDTO dishPageQueryDTO);
 
     /**
      * Delete all by ids.
