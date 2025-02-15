@@ -12,7 +12,7 @@
     </insert>
     <select id="pageQuery" resultType="com.sky.vo.DishVO">
         select d.*, c.name as categoryName from dish d
-        join category c on d.category_id = c.id
+        left join category c on d.category_id = c.id
         <where>
             <if test="categoryId != null">
                 and d.category_id = #{categoryId}
