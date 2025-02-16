@@ -165,9 +165,16 @@ public class DishServiceImpl implements DishService {
     public void deleteBatch(final List<Long> ids) {
         log.info("Batch delete dishes by ids: {}", ids);
 
-        final int count = this.setmealDishMapper.countByDishIds(ids);
+        final List<Dish> dishes = this.dishMapper.findByIds(ids);
 
+        if (dishes.stream().anyMatch(dish -> StatusConstant.ENABLE.equals(dish.getStatus()))) {
+            // cant delete when dish is on sale
+            throw new DeletionNotAllowedException(MessageConstant.DISH_ON_SALE);
+        }
+
+        final int count = this.setmealDishMapper.countByDishIds(ids);
         if (count > 0) {
+            // cant delete when dish is related by setmeal
             throw new DeletionNotAllowedException(MessageConstant.DISH_BE_RELATED_BY_SET_MEAL);
         }
 

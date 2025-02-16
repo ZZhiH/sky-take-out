@@ -78,4 +78,12 @@ public interface DishMapper {
      * @param ids the list of dish id
      */
     void deleteAll(List<Long> ids);
+
+    /**
+     * Find all dishes by ids.
+     *
+     * @param ids the list of ids.
+     * @return the list of {@code Dish}
+     */
+    List<Dish> findByIds(List<Long> ids);
 }
