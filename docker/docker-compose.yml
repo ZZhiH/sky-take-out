@@ -19,5 +19,16 @@ services:
       --collation-server=utf8mb4_general_ci
       --explicit_defaults_for_timestamp=true
       --lower_case_table_names=1
+
+  redis:
+    image: redis:latest # redis version
+    container_name: redis # container name
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data # mount data
+    command: redis-server --appendonly yes
+    restart: always
 volumes:
   mysql_data:
+  redis_data:
