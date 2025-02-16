@@ -26,4 +26,12 @@ public interface SetmealService {
      * @return the PageResult of {@code PageResult}
      */
     PageResult pageQuery(SetmealPageQueryDTO pageQueryDTO);
+
+    /**
+     * Enable/disable setmeal with given status and setmeal id.
+     *
+     * @param status    the status, 1 enable, 0 disable
+     * @param setmealId the setmeal id
+     */
+    void enableDisableSetmeal(Integer status, Long setmealId);
 }

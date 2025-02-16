@@ -84,4 +84,16 @@ public class SetmealServiceImpl implements SetmealService {
 
         return new PageResult(total, records);
     }
+
+    @Override
+    public void enableDisableSetmeal(final Integer status, final Long setmealId) {
+        log.info("Enable/disable setmeal: status={}, setmealId={}", status, setmealId);
+
+        final Setmeal setmeal = Setmeal.builder()
+            .id(setmealId)
+            .status(status)
+            .build();
+
+        this.setMealMapper.update(setmeal);
+    }
 }

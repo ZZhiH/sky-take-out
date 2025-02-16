@@ -43,4 +43,12 @@ public interface SetMealMapper {
      * @return page of {@code SetmealVO}
      */
     Page<SetmealVO> pageQuery(SetmealPageQueryDTO pageQueryDTO);
+
+    /**
+     * Update setmeal.
+     *
+     * @param setmeal the {@code Setmeal}
+     */
+    @Autofill(OperationType.UPDATE)
+    void update(Setmeal setmeal);
 }
