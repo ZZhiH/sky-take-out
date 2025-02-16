@@ -7,11 +7,13 @@ import java.util.stream.Collectors;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.sky.constant.MessageConstant;
 import com.sky.constant.StatusConstant;
 import com.sky.dto.SetmealDTO;
 import com.sky.dto.SetmealPageQueryDTO;
 import com.sky.entity.Setmeal;
 import com.sky.entity.SetmealDish;
+import com.sky.exception.DeletionNotAllowedException;
 import com.sky.mapper.SetMealMapper;
 import com.sky.mapper.SetmealDishMapper;
 import com.sky.result.PageResult;
@@ -163,5 +165,28 @@ public class SetmealServiceImpl implements SetmealService {
                     this.setmealDishMapper.insert(d);
                 }
             });
+    }
+
+    @Override
+    @Transactional
+    public void deleteByIds(final List<Long> ids) {
+        log.info("Delete by ids: {}", ids);
+
+        final List<Setmeal> setmealList = this.setMealMapper.findByIds(ids);
+
+        if (setmealList.stream().anyMatch(s -> StatusConstant.ENABLE.equals(s.getStatus()))) {
+            // cant delete enable setmeal
+            throw new DeletionNotAllowedException(MessageConstant.SET_MEAL_ENABLE_FAILED);
+        }
+
+        final List<SetmealDish> setmealDishes = this.setmealDishMapper.findBySetmealIdIn(ids);
+
+        if (!setmealList.isEmpty()) {
+            final List<Long> idList = setmealDishes.stream().map(SetmealDish::getId).toList();
+            this.setmealDishMapper.deleteAllByIds(idList);
+        }
+
+        this.setMealMapper.deleteAll(ids);
+
     }
 }

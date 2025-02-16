@@ -1,5 +1,7 @@
 package com.sky.mapper;
 
+import java.util.List;
+
 import com.github.pagehelper.Page;
 import com.sky.annotation.Autofill;
 import com.sky.dto.SetmealPageQueryDTO;
@@ -59,4 +61,19 @@ public interface SetMealMapper {
      * @return the matched {@code Setmeal}
      */
     Setmeal findById(Long id);
+
+    /**
+     * Find setmeal by ids.
+     *
+     * @param ids the list of ids.
+     * @return the list of {@code Setmeal}
+     */
+    List<Setmeal> findByIds(List<Long> ids);
+
+    /**
+     * Delete all by ids.
+     *
+     * @param ids the list of ids
+     */
+    void deleteAll(List<Long> ids);
 }

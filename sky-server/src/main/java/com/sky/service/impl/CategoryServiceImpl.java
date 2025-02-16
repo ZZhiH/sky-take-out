@@ -56,7 +56,7 @@ public class CategoryServiceImpl implements CategoryService {
     public void createCategory(final CategoryDTO categoryDTO) {
         log.info("Create category: {}", categoryDTO);
 
-        Category category = new Category();
+        final Category category = new Category();
 
         // copy properties
         BeanUtils.copyProperties(categoryDTO, category);
@@ -73,19 +73,19 @@ public class CategoryServiceImpl implements CategoryService {
 
         PageHelper.startPage(categoryPageQueryDTO.getPage(), categoryPageQueryDTO.getPageSize());
 
-        Page<Category> page = this.categoryMapper.pageQuery(categoryPageQueryDTO);
+        final Page<Category> page = this.categoryMapper.pageQuery(categoryPageQueryDTO);
 
-        long total = page.getTotal();
-        List<Category> records = page.getResult();
+        final long total = page.getTotal();
+        final List<Category> records = page.getResult();
 
         return new PageResult(total, records);
     }
 
     @Override
-    public void enableDisableCategory(final Integer status, Long id) {
+    public void enableDisableCategory(final Integer status, final Long id) {
         log.info("Enable or disable category: status={}, id={}", status, id);
 
-        Category category = Category.builder()
+        final Category category = Category.builder()
             .id(id)
             .status(status)
             .build();
@@ -97,12 +97,12 @@ public class CategoryServiceImpl implements CategoryService {
     public void deleteById(final Long id) {
         log.info("Delete by id: {}", id);
 
-        Integer dishesCount = this.dishMapper.countByCategoryId(id);
+        final Integer dishesCount = this.dishMapper.countByCategoryId(id);
         if (dishesCount > 0) {
             throw new DeletionNotAllowedException(MessageConstant.CATEGORY_BE_RELATED_BY_DISH);
         }
 
-        Integer setMealCount = this.setMealMapper.countByCategoryId(id);
+        final Integer setMealCount = this.setMealMapper.countByCategoryId(id);
         if (setMealCount > 0) {
             throw new DeletionNotAllowedException(MessageConstant.CATEGORY_BE_RELATED_BY_SETMEAL);
         }
@@ -111,17 +111,17 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public List<Category> getCategoryList(Integer type) {
+    public List<Category> getCategoryList(final Integer type) {
         log.info("Get category list by type: {}", type);
 
         return this.categoryMapper.findCategoryListByType(type);
     }
 
     @Override
-    public void updateCategory(CategoryDTO categoryDTO) {
+    public void updateCategory(final CategoryDTO categoryDTO) {
         log.info("Update category: {}", categoryDTO);
 
-        Category category = new Category();
+        final Category category = new Category();
 
         // copy properties
         BeanUtils.copyProperties(categoryDTO, category);

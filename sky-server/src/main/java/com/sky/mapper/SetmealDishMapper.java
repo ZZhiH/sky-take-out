@@ -54,4 +54,12 @@ public interface SetmealDishMapper {
      * @param setmealDish the {@code SetmealDish}
      */
     void insert(SetmealDish setmealDish);
+
+    /**
+     * Find all setmeal dish by setmeal id list.
+     *
+     * @param setmealIds the list of setmeal ids.
+     * @return the list of {@code SetmealDish}
+     */
+    List<SetmealDish> findBySetmealIdIn(List<Long> setmealIds);
 }
