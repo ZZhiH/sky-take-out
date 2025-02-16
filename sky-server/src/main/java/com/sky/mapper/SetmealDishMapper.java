@@ -33,4 +33,25 @@ public interface SetmealDishMapper {
      */
     @Select("select * from setmeal_dish where setmeal_id = #{setmealId}")
     List<SetmealDish> findBySetmealId(Long setmealId);
+
+    /**
+     * Delete all by ids.
+     *
+     * @param ids the list of ids
+     */
+    void deleteAllByIds(List<Long> ids);
+
+    /**
+     * Update setmeal dish.
+     *
+     * @param setmealDish the {@code SetmealDish}
+     */
+    void update(SetmealDish setmealDish);
+
+    /**
+     * Insert new setmeal dish.
+     *
+     * @param setmealDish the {@code SetmealDish}
+     */
+    void insert(SetmealDish setmealDish);
 }

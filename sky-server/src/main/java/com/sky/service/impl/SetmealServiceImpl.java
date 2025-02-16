@@ -1,6 +1,9 @@
 package com.sky.service.impl;
 
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -114,5 +117,51 @@ public class SetmealServiceImpl implements SetmealService {
         setmealVO.setSetmealDishes(setmealDishes);
 
         return setmealVO;
+    }
+
+    @Override
+    @Transactional
+    public void updateWithDishes(final SetmealDTO setmealDTO) {
+        log.info("update with dishes: {}", setmealDTO);
+
+        final Setmeal setmeal = new Setmeal();
+
+        // copy properties
+        BeanUtils.copyProperties(setmealDTO, setmeal);
+
+        this.setMealMapper.update(setmeal);
+
+        final Long setmealId = setmealDTO.getId();
+        final List<SetmealDish> setmealDishes = setmealDTO.getSetmealDishes();
+        final List<SetmealDish> savedDishes = this.setmealDishMapper.findBySetmealId(setmealId);
+
+        final Map<String, SetmealDish> dishesMap = setmealDishes.stream().collect(Collectors.toMap(SetmealDish::getName,
+            Function.identity(), (a, b) -> b));
+        final Map<String, SetmealDish> savedDishesMap =
+            savedDishes.stream().collect(Collectors.toMap(SetmealDish::getName,
+                Function.identity(), (a, b) -> b));
+
+        final List<Long> idsToDelete =
+            savedDishes.stream().filter(d -> !dishesMap.containsKey(d.getName())).map(SetmealDish::getId).toList();
+
+        if (!idsToDelete.isEmpty()) {
+            // delete dishes
+            this.setmealDishMapper.deleteAllByIds(idsToDelete);
+        }
+
+        setmealDishes
+            .forEach(d -> {
+                final String name = d.getName();
+                if (savedDishesMap.containsKey(name)) {
+                    // update dishes
+                    final SetmealDish setmealDish = savedDishesMap.get(name);
+                    setmealDish.setCopies(d.getCopies());
+                    this.setmealDishMapper.update(setmealDish);
+                } else {
+                    // insert new dishes
+                    d.setSetmealId(setmealId);
+                    this.setmealDishMapper.insert(d);
+                }
+            });
     }
 }

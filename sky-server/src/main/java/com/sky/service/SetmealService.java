@@ -43,4 +43,11 @@ public interface SetmealService {
      * @return the matched {@code SetmealVO}
      */
     SetmealVO findById(Long id);
+
+    /**
+     * Update with dishes.
+     *
+     * @param setmealDTO the {@code SetmealDTO}
+     */
+    void updateWithDishes(SetmealDTO setmealDTO);
 }

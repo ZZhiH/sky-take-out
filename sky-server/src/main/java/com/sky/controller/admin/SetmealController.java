@@ -14,6 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -105,5 +106,20 @@ public class SetmealController {
         final SetmealVO setmealVO = this.setmealService.findById(id);
 
         return Result.success(setmealVO);
+    }
+
+    /**
+     * Update with dishes.
+     *
+     * @param setmealDTO the {@code SetmealDish}
+     */
+    @PutMapping
+    @Operation(summary = "updateWithDishes", description = "Update setmeal dish with dishes")
+    public Result<Void> updateWithDishes(@RequestBody @Valid final SetmealDTO setmealDTO) {
+        log.info("Update setmeal dish with dishes: {}", setmealDTO);
+
+        this.setmealService.updateWithDishes(setmealDTO);
+
+        return Result.success();
     }
 }
