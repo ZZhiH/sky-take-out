@@ -2,6 +2,7 @@ package com.sky.dto;
 
 import java.io.Serializable;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 /**
@@ -13,11 +14,13 @@ public class SetmealPageQueryDTO implements Serializable {
     /**
      * The page.
      */
+    @NotNull
     private int page;
 
     /**
      * The page size.
      */
+    @NotNull
     private int pageSize;
 
     /**

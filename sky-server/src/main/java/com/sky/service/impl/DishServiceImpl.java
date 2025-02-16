@@ -1,6 +1,9 @@
 package com.sky.service.impl;
 
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -85,28 +88,28 @@ public class DishServiceImpl implements DishService {
     }
 
     @Override
-    public DishDTO findById(final Long id) {
+    public DishVO findById(final Long id) {
         log.info("find by id: {}", id);
 
-        final DishDTO dishDTO = new DishDTO();
+        final DishVO dishVo = new DishVO();
 
         // find dish by id
-        final Dish dish = this.dishMapper.findById(id);
+        final DishVO dish = this.dishMapper.findByIdWithFlavor(id);
 
         if (dish == null) {
-            return dishDTO;
+            return dishVo;
         }
 
         // copy properties
-        BeanUtils.copyProperties(dish, dishDTO);
+        BeanUtils.copyProperties(dish, dishVo);
 
         // find dish flavor by id
         final List<DishFlavor> dishFlavors = this.dishFlavorMapper.findByDishId(id);
 
         // set dish flavors
-        dishDTO.setFlavors(dishFlavors);
+        dishVo.setFlavors(dishFlavors);
 
-        return dishDTO;
+        return dishVo;
     }
 
     @Override
@@ -144,7 +147,7 @@ public class DishServiceImpl implements DishService {
 
     @Override
     @Transactional
-    public void updateDish(final DishDTO dishDTO) {
+    public void updateWithFlavors(final DishDTO dishDTO) {
         log.info("Update dish: {}", dishDTO);
 
         final Dish dish = new Dish();
@@ -152,11 +155,42 @@ public class DishServiceImpl implements DishService {
         // copy properties
         BeanUtils.copyProperties(dishDTO, dish);
 
-        final List<DishFlavor> flavors = dishDTO.getFlavors();
-
         this.dishMapper.update(dish);
+
+        final List<DishFlavor> flavors = dishDTO.getFlavors();
+        final List<DishFlavor> savedFlavors = this.dishFlavorMapper.findByDishId(dishDTO.getId());
+
+        final Map<String, DishFlavor> dishFlavorMap = flavors.stream()
+            .collect(Collectors.toMap(DishFlavor::getName, Function.identity()));
+
+        final Map<String, DishFlavor> savedDishFlavorMap = savedFlavors.stream()
+            .collect(Collectors.toMap(DishFlavor::getName, Function.identity()));
+
+        final List<Long> idList =
+            savedFlavors.stream()
+                .filter(f -> !dishFlavorMap.containsKey(f.getName()))
+                .map(DishFlavor::getId)
+                .toList();
+
+        if (!CollectionUtils.isEmpty(idList)) {
+            // delete flavors
+            this.dishFlavorMapper.deleteAllById(idList);
+        }
+
+
         if (!CollectionUtils.isEmpty(flavors)) {
-            this.dishFlavorMapper.updateBatch(flavors);
+            flavors.forEach(f -> {
+                if (savedDishFlavorMap.containsKey(f.getName())) {
+                    // update flavors
+                    final DishFlavor dishFlavor = savedDishFlavorMap.get(f.getName());
+                    dishFlavor.setValue(f.getValue());
+                    this.dishFlavorMapper.update(dishFlavor);
+                } else {
+                    // new flavors
+                    f.setDishId(dish.getId());
+                    this.dishFlavorMapper.insert(f);
+                }
+            });
         }
     }
 
@@ -181,7 +215,7 @@ public class DishServiceImpl implements DishService {
         final List<DishFlavor> dishFlavors = this.dishFlavorMapper.findByDishIdIn(ids);
 
         if (!dishFlavors.isEmpty()) {
-            this.dishFlavorMapper.deleteAll(ids);
+            this.dishFlavorMapper.deleteAllByDishIds(ids);
         }
 
         this.dishMapper.deleteAll(ids);

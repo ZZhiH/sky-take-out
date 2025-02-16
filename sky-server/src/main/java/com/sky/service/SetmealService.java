@@ -1,6 +1,8 @@
 package com.sky.service;
 
 import com.sky.dto.SetmealDTO;
+import com.sky.dto.SetmealPageQueryDTO;
+import com.sky.result.PageResult;
 
 /**
  * The SetmealService interface.
@@ -16,4 +18,12 @@ public interface SetmealService {
      * @param setmealDTO the {@code SetmealDTO}
      */
     void save(SetmealDTO setmealDTO);
+
+    /**
+     * Setmeal page query.
+     *
+     * @param pageQueryDTO the {@code SetmealPageQueryDTO}
+     * @return the PageResult of {@code PageResult}
+     */
+    PageResult pageQuery(SetmealPageQueryDTO pageQueryDTO);
 }

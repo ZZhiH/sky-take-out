@@ -45,7 +45,7 @@ public interface DishMapper {
      * @return the matched {@code Dish}
      */
     @Select("select * from dish where id = #{id}")
-    Dish findById(Long id);
+    DishVO findByIdWithFlavor(Long id);
 
     /**
      * Find by category id.

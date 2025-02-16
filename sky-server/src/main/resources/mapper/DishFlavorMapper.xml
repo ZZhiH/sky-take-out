@@ -10,6 +10,11 @@
             ( #{dishFlavor.dishId}, #{dishFlavor.name}, #{dishFlavor.value} )
         </foreach>
     </insert>
+    <insert id="insert">
+        insert into dish_flavor (dish_id, name, value)
+        values
+        ( #{dishId}, #{name}, #{value} )
+    </insert>
     <update id="updateBatch" parameterType="list">
         update dish_flavor
         set
@@ -28,6 +33,11 @@
             #{dishFlavor.id}
         </foreach>
     </update>
+    <update id="update">
+        update dish_flavor
+        set name = #{name}, value = #{value}
+        where id = #{id}
+    </update>
     <select id="findByDishIdIn" resultType="com.sky.entity.DishFlavor">
         select *
         from dish_flavor
@@ -36,9 +46,16 @@
             #{id}
         </foreach>
     </select>
-    <delete id="deleteAll">
+    <delete id="deleteAllByDishIds">
         delete from dish_flavor
         where dish_id in
+        <foreach collection="dishIds" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    <delete id="deleteAllById">
+        delete from dish_flavor
+        where id in
         <foreach collection="ids" item="id" open="(" separator="," close=")">
             #{id}
         </foreach>

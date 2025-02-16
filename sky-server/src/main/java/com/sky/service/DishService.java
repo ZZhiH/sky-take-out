@@ -6,6 +6,7 @@ import com.sky.dto.DishDTO;
 import com.sky.dto.DishPageQueryDTO;
 import com.sky.entity.Dish;
 import com.sky.result.PageResult;
+import com.sky.vo.DishVO;
 
 /**
  * The DishService interface.
@@ -28,7 +29,7 @@ public interface DishService {
      * @param id the dish id
      * @return the matched {@code DishDTO}
      */
-    DishDTO findById(Long id);
+    DishVO findById(Long id);
 
     /**
      * Find by category id.
@@ -59,7 +60,7 @@ public interface DishService {
      *
      * @param dishDTO the {@code DishDTO}
      */
-    void updateDish(DishDTO dishDTO);
+    void updateWithFlavors(DishDTO dishDTO);
 
     /**
      * Batch delete dishes by ids.

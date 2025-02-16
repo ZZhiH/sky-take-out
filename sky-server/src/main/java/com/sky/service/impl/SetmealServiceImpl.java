@@ -2,13 +2,18 @@ package com.sky.service.impl;
 
 import java.util.List;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.sky.constant.StatusConstant;
 import com.sky.dto.SetmealDTO;
+import com.sky.dto.SetmealPageQueryDTO;
 import com.sky.entity.Setmeal;
 import com.sky.entity.SetmealDish;
 import com.sky.mapper.SetMealMapper;
 import com.sky.mapper.SetmealDishMapper;
+import com.sky.result.PageResult;
 import com.sky.service.SetmealService;
+import com.sky.vo.SetmealVO;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -64,5 +69,19 @@ public class SetmealServiceImpl implements SetmealService {
         final List<SetmealDish> setmealDishes = setmealDTO.getSetmealDishes();
         setmealDishes.forEach(sd -> sd.setSetmealId(setmeal.getId()));
         this.setmealDishMapper.insertAll(setmealDishes);
+    }
+
+    @Override
+    public PageResult pageQuery(final SetmealPageQueryDTO pageQueryDTO) {
+        log.info("Page query: {}", pageQueryDTO);
+
+        PageHelper.startPage(pageQueryDTO.getPage(), pageQueryDTO.getPageSize());
+
+        final Page<SetmealVO> page = this.setMealMapper.pageQuery(pageQueryDTO);
+
+        final long total = page.getTotal();
+        final List<SetmealVO> records = page.getResult();
+
+        return new PageResult(total, records);
     }
 }

@@ -8,6 +8,7 @@ import com.sky.entity.Dish;
 import com.sky.result.PageResult;
 import com.sky.result.Result;
 import com.sky.service.DishService;
+import com.sky.vo.DishVO;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -67,12 +68,12 @@ public class DishController {
      */
     @GetMapping("/{id}")
     @Operation(summary = "findById", description = "Find by id")
-    public Result<DishDTO> findById(@PathVariable final Long id) {
+    public Result<DishVO> findById(@PathVariable final Long id) {
         log.info("Find by id: {}", id);
 
-        final DishDTO dishDTO = this.dishService.findById(id);
+        final DishVO dishVO = this.dishService.findById(id);
 
-        return Result.success(dishDTO);
+        return Result.success(dishVO);
     }
 
     /**
@@ -131,7 +132,7 @@ public class DishController {
     public Result<Void> updateDish(@RequestBody @Valid final DishDTO dishDTO) {
         log.info("Update dish: {}", dishDTO);
 
-        this.dishService.updateDish(dishDTO);
+        this.dishService.updateWithFlavors(dishDTO);
 
         return Result.success();
     }
