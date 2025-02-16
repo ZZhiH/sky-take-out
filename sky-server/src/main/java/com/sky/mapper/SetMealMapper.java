@@ -51,4 +51,12 @@ public interface SetMealMapper {
      */
     @Autofill(OperationType.UPDATE)
     void update(Setmeal setmeal);
+
+    /**
+     * Find by id.
+     *
+     * @param id the setmeal id.
+     * @return the matched {@code Setmeal}
+     */
+    Setmeal findById(Long id);
 }

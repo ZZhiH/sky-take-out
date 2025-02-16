@@ -42,4 +42,12 @@
             id = #{id}
         </where>
     </update>
+    <select id="findById" resultType="com.sky.entity.Setmeal">
+        select s.*, c.name as categoryName
+        from setmeal s
+        left join category c on s.category_id = c.id
+        <where>
+            s.id = #{id}
+        </where>
+    </select>
 </mapper>

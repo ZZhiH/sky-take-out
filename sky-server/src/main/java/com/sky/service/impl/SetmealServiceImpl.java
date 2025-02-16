@@ -96,4 +96,23 @@ public class SetmealServiceImpl implements SetmealService {
 
         this.setMealMapper.update(setmeal);
     }
+
+    @Override
+    public SetmealVO findById(final Long id) {
+        log.info("Find setmeal by id: {}", id);
+
+        final SetmealVO setmealVO = new SetmealVO();
+
+        // find setmeal
+        final Setmeal setmeal = this.setMealMapper.findById(id);
+
+        // copy properties
+        BeanUtils.copyProperties(setmeal, setmealVO);
+
+        // find setmeal dishes
+        final List<SetmealDish> setmealDishes = this.setmealDishMapper.findBySetmealId(id);
+        setmealVO.setSetmealDishes(setmealDishes);
+
+        return setmealVO;
+    }
 }

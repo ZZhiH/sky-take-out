@@ -5,6 +5,7 @@ import com.sky.dto.SetmealPageQueryDTO;
 import com.sky.result.PageResult;
 import com.sky.result.Result;
 import com.sky.service.SetmealService;
+import com.sky.vo.SetmealVO;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -89,5 +90,20 @@ public class SetmealController {
         this.setmealService.enableDisableSetmeal(status, setmealId);
 
         return Result.success();
+    }
+
+    /**
+     * Find setmeal by id.
+     *
+     * @return the {@code SetmealVO}
+     */
+    @GetMapping("/{id}")
+    @Operation(summary = "findById", description = "find setmeal by id")
+    public Result<SetmealVO> findById(@PathVariable("id") final Long id) {
+        log.info("find setmeal by id: {}", id);
+
+        final SetmealVO setmealVO = this.setmealService.findById(id);
+
+        return Result.success(setmealVO);
     }
 }

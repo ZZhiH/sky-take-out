@@ -5,6 +5,7 @@ import java.util.List;
 import com.sky.entity.SetmealDish;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
 
 /**
  * The SetmealDishMapper interface.
@@ -23,4 +24,13 @@ public interface SetmealDishMapper {
      * @param setmealDishes the list of {@code SetmealDish}
      */
     void insertAll(List<SetmealDish> setmealDishes);
+
+    /**
+     * Find setmeal dishes by setmeal id.
+     *
+     * @param setmealId the setmeal id
+     * @return list of {@code SetmealDish}
+     */
+    @Select("select * from setmeal_dish where setmeal_id = #{setmealId}")
+    List<SetmealDish> findBySetmealId(Long setmealId);
 }

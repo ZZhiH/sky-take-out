@@ -3,6 +3,7 @@ package com.sky.service;
 import com.sky.dto.SetmealDTO;
 import com.sky.dto.SetmealPageQueryDTO;
 import com.sky.result.PageResult;
+import com.sky.vo.SetmealVO;
 
 /**
  * The SetmealService interface.
@@ -34,4 +35,12 @@ public interface SetmealService {
      * @param setmealId the setmeal id
      */
     void enableDisableSetmeal(Integer status, Long setmealId);
+
+    /**
+     * Find setmeal by id.
+     *
+     * @param id the setmeal id
+     * @return the matched {@code SetmealVO}
+     */
+    SetmealVO findById(Long id);
 }
