@@ -28,7 +28,7 @@ services:
     volumes:
       - redis_data:/data # mount data
     command: redis-server --appendonly yes
-    restart: always
+    restart: unless-stopped
 volumes:
   mysql_data:
   redis_data:
