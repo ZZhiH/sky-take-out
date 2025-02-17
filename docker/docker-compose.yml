@@ -27,7 +27,7 @@ services:
       - "6379:6379"
     volumes:
       - redis_data:/data # mount data
-    command: redis-server --appendonly yes
+    command: redis-server --appendonly yes --requirepass 123456
     restart: unless-stopped
 volumes:
   mysql_data:
