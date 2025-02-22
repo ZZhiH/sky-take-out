@@ -13,3 +13,7 @@ sky:
       region: eu-west-1
       access-key: ${SKY_TAKE_OUT_ACCESS_KEY}
       secret-key: ${SKY_TAKE_OUT_ACCESS_PASSWORD}
+  redis:
+    host: localhost
+    port: 6379
+    password: 123456
