@@ -10,13 +10,16 @@ import com.sky.service.CategoryService;
 import com.sky.service.DishService;
 import com.sky.service.EmployeeService;
 import com.sky.service.SetmealService;
+import com.sky.service.ShopService;
 import com.sky.service.impl.CategoryServiceImpl;
 import com.sky.service.impl.DishServiceImpl;
 import com.sky.service.impl.EmployeeServiceImpl;
 import com.sky.service.impl.SetmealServiceImpl;
+import com.sky.service.impl.ShopServiceImpl;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.core.RedisTemplate;
 
 /**
  * The ServiceConfiguration.
@@ -77,5 +80,16 @@ public class ServiceConfiguration {
     SetmealService setmealService(final SetMealMapper setMealMapper,
                                   final SetmealDishMapper setmealDishMapper) {
         return new SetmealServiceImpl(setMealMapper, setmealDishMapper);
+    }
+
+    /**
+     * Shop service bean.
+     *
+     * @param redisTemplate the {@code RedisTemplate}
+     * @return ShopService
+     */
+    @Bean
+    ShopService shopService(final RedisTemplate<String, Integer> redisTemplate) {
+        return new ShopServiceImpl(redisTemplate);
     }
 }

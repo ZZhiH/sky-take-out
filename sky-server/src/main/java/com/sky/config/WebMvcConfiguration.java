@@ -44,6 +44,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
         log.info("Add custom interceptor...");
         registry.addInterceptor(jwtTokenAdminInterceptor)
             .addPathPatterns("/admin/**")
+            .addPathPatterns("/user/**")
             .excludePathPatterns("/admin/employee/login");
     }
 
