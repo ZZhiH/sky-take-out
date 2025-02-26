@@ -1,4 +1,4 @@
-package com.sky.service.impl;
+package com.sky.service.admin.impl;
 
 import java.util.List;
 
@@ -14,7 +14,7 @@ import com.sky.mapper.CategoryMapper;
 import com.sky.mapper.DishMapper;
 import com.sky.mapper.SetMealMapper;
 import com.sky.result.PageResult;
-import com.sky.service.CategoryService;
+import com.sky.service.admin.CategoryService;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;

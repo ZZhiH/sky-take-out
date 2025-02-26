@@ -1,4 +1,4 @@
-package com.sky.service;
+package com.sky.service.admin;
 
 /**
  * The ShopService interface.

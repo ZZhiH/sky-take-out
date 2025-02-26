@@ -7,7 +7,7 @@ import com.sky.dto.CategoryPageQueryDTO;
 import com.sky.entity.Category;
 import com.sky.result.PageResult;
 import com.sky.result.Result;
-import com.sky.service.CategoryService;
+import com.sky.service.admin.CategoryService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

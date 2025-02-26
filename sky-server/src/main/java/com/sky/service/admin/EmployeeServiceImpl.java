@@ -1,4 +1,4 @@
-package com.sky.service.impl;
+package com.sky.service.admin.impl;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -21,7 +21,7 @@ import com.sky.exception.PasswordEditFailedException;
 import com.sky.exception.PasswordErrorException;
 import com.sky.mapper.EmployeeMapper;
 import com.sky.result.PageResult;
-import com.sky.service.EmployeeService;
+import com.sky.service.admin.EmployeeService;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -55,11 +55,11 @@ public class EmployeeServiceImpl implements EmployeeService {
      * @return the login Employee
      */
     public Employee login(final EmployeeLoginDTO employeeLoginDTO) {
-        String username = employeeLoginDTO.getUsername();
+        final String username = employeeLoginDTO.getUsername();
         String password = employeeLoginDTO.getPassword();
 
         //1、get employee by username
-        Employee employee = employeeMapper.getByUsername(username);
+        final Employee employee = employeeMapper.getByUsername(username);
 
         if (employee == null) {
             // employee not found.
@@ -86,7 +86,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public void createEmployee(final EmployeeDTO employeeDTO) {
         log.info("Entering createEmployee: employeeDTO={}", employeeDTO);
-        Employee employee = new Employee();
+        final Employee employee = new Employee();
 
         // copy properties
         BeanUtils.copyProperties(employeeDTO, employee);
@@ -116,10 +116,10 @@ public class EmployeeServiceImpl implements EmployeeService {
         // page query
         PageHelper.startPage(pageQueryDTO.getPage(), pageQueryDTO.getPageSize());
 
-        Page<Employee> page = this.employeeMapper.pageQuery(pageQueryDTO);
+        final Page<Employee> page = this.employeeMapper.pageQuery(pageQueryDTO);
 
-        long total = page.getTotal();
-        List<Employee> records = page.getResult();
+        final long total = page.getTotal();
+        final List<Employee> records = page.getResult();
 
         return new PageResult(total, records);
     }
@@ -128,7 +128,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     public void enableDisableEmployeeAccount(final Integer status, final Long id) {
         log.info("Lock employee: status={}, id={}", status, id);
 
-        Employee employee = Employee.builder()
+        final Employee employee = Employee.builder()
             .id(id)
             .status(status)
             .build();
@@ -141,7 +141,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     public Employee findEmployeeById(final Long id) {
         log.info("Find employee by id: {}", id);
 
-        Employee employee = this.employeeMapper.findById(id);
+        final Employee employee = this.employeeMapper.findById(id);
         employee.setPassword("****");
 
         return employee;
@@ -151,7 +151,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     public void updateEmployee(final EmployeeDTO employeeDTO) {
         log.info("Update employee: {}", employeeDTO);
 
-        Employee employee = new Employee();
+        final Employee employee = new Employee();
 
         BeanUtils.copyProperties(employeeDTO, employee);
 
@@ -163,15 +163,15 @@ public class EmployeeServiceImpl implements EmployeeService {
     public void editPassword(final PasswordEditDTO passwordEditDTO) {
         log.info("Edit password: {}", passwordEditDTO);
 
-        String oldPassword = passwordEditDTO.getOldPassword();
-        String newPassword = passwordEditDTO.getNewPassword();
+        final String oldPassword = passwordEditDTO.getOldPassword();
+        final String newPassword = passwordEditDTO.getNewPassword();
 
         // find employee by id
-        Employee employee = this.employeeMapper.findById(passwordEditDTO.getEmpId());
+        final Employee employee = this.employeeMapper.findById(passwordEditDTO.getEmpId());
         if (employee == null) {
             throw new AccountNotFoundException(MessageConstant.ACCOUNT_NOT_FOUND);
         }
-        String oldPassMd5 = DigestUtils.md5DigestAsHex(oldPassword.getBytes());
+        final String oldPassMd5 = DigestUtils.md5DigestAsHex(oldPassword.getBytes());
 
         // compare old password
         if (!oldPassMd5.equals(employee.getPassword())) {
@@ -180,7 +180,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         }
 
         // set new password 
-        String newPassMd5 = DigestUtils.md5DigestAsHex(newPassword.getBytes());
+        final String newPassMd5 = DigestUtils.md5DigestAsHex(newPassword.getBytes());
         employee.setPassword(newPassMd5);
 
         this.employeeMapper.update(employee);

@@ -41,6 +41,12 @@ sky:
     admin-ttl: 7200000
     # token name
     admin-token-name: token
+    user-secret-key: itheima
+    user-ttl: 7200000
+    user-token-name: authentication
+  wechat:
+    appid: ${WECHAT_APP_ID}
+    secret: ${WECHAT_SECRET}
 
 # aws
 aws:
@@ -50,6 +56,7 @@ aws:
     region: ${sky.aws.s3.region}
     access-key: ${sky.aws.s3.access-key}
     secret-key: ${sky.aws.s3.secret-key}
+
 
 # swagger
 

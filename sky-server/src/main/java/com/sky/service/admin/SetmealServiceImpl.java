@@ -1,4 +1,4 @@
-package com.sky.service.impl;
+package com.sky.service.admin.impl;
 
 import java.util.List;
 import java.util.Map;
@@ -17,7 +17,7 @@ import com.sky.exception.DeletionNotAllowedException;
 import com.sky.mapper.SetMealMapper;
 import com.sky.mapper.SetmealDishMapper;
 import com.sky.result.PageResult;
-import com.sky.service.SetmealService;
+import com.sky.service.admin.SetmealService;
 import com.sky.vo.SetmealVO;
 
 import lombok.extern.slf4j.Slf4j;

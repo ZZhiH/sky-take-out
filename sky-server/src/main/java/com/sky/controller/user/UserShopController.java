@@ -1,7 +1,7 @@
 package com.sky.controller.user;
 
 import com.sky.result.Result;
-import com.sky.service.ShopService;
+import com.sky.service.admin.ShopService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

@@ -1,7 +1,7 @@
-package com.sky.service.impl;
+package com.sky.service.admin.impl;
 
 import com.sky.constant.StatusConstant;
-import com.sky.service.ShopService;
+import com.sky.service.admin.ShopService;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
